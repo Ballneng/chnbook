@@ -2,3 +2,4 @@ images/*
 data/*
 temp/*
 .idea/*
+.DS_Store
