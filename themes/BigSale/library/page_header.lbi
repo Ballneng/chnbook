@@ -1,0 +1,71 @@
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<script type="text/javascript">
+var process_request = "{$lang.process_request}";
+var btn_buy = "{$lang.btn_buy}";
+var is_cancel = "{$lang.is_cancel}";
+var select_spe = "{$lang.select_spe}";
+</script>
+<script src="http://siteapp.baidu.com/static/webappservice/uaredirect.js" type="text/javascript"></script><script type="text/javascript">uaredirect("http://m.chnbook.org", "http://www.chnbook.org");</script>
+<div id="topNav">
+ <!--<span class="L"></span><span class="R"></span>-->
+ <!--<div class="tel fl">全国统一热线：</div>-->
+ <div class="nav fr">
+ {insert_scripts files='transport.js,utils.js'}
+ <font id="ECS_MEMBERZONE">{* ECSHOP 提醒您：根据用户id来调用member_info.lbi显示不同的界面  *}{insert name='member_info'} </font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <!--{if $navigator_list.top}-->
+		<!-- {foreach name=nav_top_list from=$navigator_list.top item=nav} -->
+       <a href="{$nav.url}" <!-- {if $nav.opennew eq 1} --> target="_blank" <!-- {/if} -->>{$nav.name}</a>
+        <!-- {if !$smarty.foreach.nav_top_list.last} -->
+          |
+       <!-- {/if} -->
+    <!-- {/foreach} -->
+ <!-- {/if} -->
+ </div>
+</div>
+<div class="block clearfix" id="searchBox">
+    <!--<div class="logo"><a href="/"><img src="images/logo.jpg" alt="{$page_title}" /></a></div>
+    <div style="float: left;margin-left: 70px;"><img src="images/400.jpg" /></div>
+    <div style="float: right; margin-top: 20px;">
+        <div style="float: left; margin: 0 10px;">
+            <div style="margin: 0 0 5px 9px; background: url(images/icons.png) no-repeat scroll -64px 0 transparent; width: 30px; height: 30px;"></div>
+            <a href="http://www.chnbook.org/article.php?id=42">正品保障</a>
+        </div>
+        <div style="float: left; margin: 0 10px;">
+            <div style="margin: 0 0 5px 9px; background: url(images/icons.png) no-repeat scroll -124px 0 transparent; width: 30px; height: 30px;"></div>
+            <a href="http://www.chnbook.org/article.php?id=41">联系客服</a>
+        </div>
+        <div style="float: left; margin: 0 10px;">
+            <div style="margin: 0 0 5px 0px; background: url(images/icons.png) no-repeat scroll -94px 0 transparent; width: 30px; height: 30px;"></div>
+            <a href="http://www.chnbook.org/article.php?id=10" style="margin-left: 2px;">帮  助</a>
+        </div>
+    </div>-->
+    <a href="http://www.chnbook.org/article.php?id=42"><img src="themes/BigSale/images/logo2.jpg" alt="logo" /></a>
+</div>
+<div class="block" id="pageNav">
+ <span class="L"></span><span class="R"></span>
+ <ul id="navlist">
+	<li {if $navigator_list.config.index eq 1} class="cur"{/if}>{if $navigator_list.config.index eq 1}<span class="L"></span><span class="R"></span>{/if}<a href="/">{$lang.home}</a></li>
+	<!-- {foreach name=nav_middle_list from=$navigator_list.middle item=nav} -->
+   <li {if $nav.active eq 1} class="cur"{/if}>
+	 {if $nav.active eq 1}<span class="L"></span><span class="R"></span>{/if}
+	 <a href="{$nav.url}" {if $nav.opennew eq 1}target="_blank" {/if}>{$nav.name}</a>
+	 </li>
+  <!-- {/foreach} -->
+ </ul>
+ <!--<script>pagenav();</script>-->
+
+ <div class="searchkeywords clearfix">
+	
+	<div class="keyslist fl">
+	 咨询时间:上午8:30 — 下午17:30 每天下午3点发货，发货后超过七天没有收到教材的考生请及时联系我们
+	</div>
+
+	<div class="fr" id="ECS_CARTINFO">
+	<span></span>
+	{insert_scripts files='transport.js'}
+	{insert name='cart_info'}
+	</div>
+ </div>
+
+</div>

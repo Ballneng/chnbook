@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<meta name="Description" content="{$description}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+<!-- {if $cat_style} -->
+<link href="{$cat_style}" rel="stylesheet" type="text/css" />
+<!-- {/if} -->
+{* 包含脚本文件 *}
+{insert_scripts files='common.js,global.js,compare.js'}
+<!--<script type="text/javascript" src="js/action.js"></script>-->
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem -->
+	<div class="block clearfix"><!-- TemplateBeginEditable name="通栏广告位" -->
+  <!-- TemplateEndEditable -->
+</div>
+<div class="block clearfix">
+  <div id="pageLeft" class="fl">
+	 <!-- TemplateBeginEditable name="左边区域" -->
+	 <!-- #BeginLibraryItem "/library/category_tree.lbi" --><!-- #EndLibraryItem --> 
+	 <!-- #BeginLibraryItem "/library/top10.lbi" --><!-- #EndLibraryItem -->
+	 <!-- #BeginLibraryItem "/library/history.lbi" --><!-- #EndLibraryItem -->
+	 <!-- #BeginLibraryItem "/library/promotion_info.lbi" --><!-- #EndLibraryItem -->
+   <!-- TemplateEndEditable -->
+	</div>
+	<div id="pageRight" class="fr">
+	<!--{if $brands.1 || $price_grade.1 || $filter_attr_list}-->
+	<div class="module">
+		<h1 class="modTitle"><p>{$lang.goods_filter}</p></h1>
+		<div class="modContent">
+		  <!--{if $brands.1}-->
+			<div class="screeBox">
+			  <strong>{$lang.brand}：</strong>
+				<!--{foreach from=$brands item=brand}-->
+					<!-- {if $brand.selected} -->
+					<span>{$brand.brand_name}</span>
+					<!-- {else} -->
+					<a href="{$brand.url}" rel="nofollow">{$brand.brand_name}</a>&nbsp;
+					<!-- {/if} -->
+				<!--{/foreach}-->
+			</div>
+			<!--{/if}-->
+			<!--{if $price_grade.1}-->
+			<div class="screeBox">
+			<strong>{$lang.price}：</strong>
+			<!--{foreach from=$price_grade item=grade}-->
+				<!-- {if $grade.selected} -->
+				<span>{$grade.price_range}</span>
+				<!-- {else} -->
+				<a href="{$grade.url}" rel="nofollow">{$grade.price_range}</a>&nbsp;
+				<!-- {/if} -->
+			<!--{/foreach}-->
+			</div>
+			<!--{/if}-->
+			<!--{foreach from=$filter_attr_list item=filter_attr}-->
+      <div class="screeBox">
+			<strong>{$filter_attr.filter_attr_name|escape:html}：</strong>
+			<!--{foreach from=$filter_attr.attr_list item=attr}-->
+				<!-- {if $attr.selected} -->
+				<span>{$attr.attr_value}</span>
+				<!-- {else} -->
+				<a href="{$attr.url}" rel="nofollow">{$attr.attr_value}</a>&nbsp;
+				<!-- {/if} -->
+			<!--{/foreach}-->
+			</div>
+      <!--{/foreach}--> 
+		</div>
+	</div>
+	<!-- {/if} -->	
+	<!-- TemplateBeginEditable name="商品列表上可编辑区域" --> 
+	<!-- #BeginLibraryItem "/library/recommend_best.lbi" --><!-- #EndLibraryItem -->
+  <!-- TemplateEndEditable -->
+	<!-- #BeginLibraryItem "/library/goods_list.lbi" --><!-- #EndLibraryItem -->
+	<!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->
+	<!-- TemplateBeginEditable name="商品列表下可编辑区域" -->  
+  <!-- TemplateEndEditable -->
+	</div>
+</div>
+<div class="block">
+<!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem -->
+</div>
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+
+
+<!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+        <a class="bds_qzone"></a>
+        <a class="bds_tsina"></a>
+        <a class="bds_tqq"></a>
+        <a class="bds_renren"></a>
+        <span class="bds_more">更多</span>
+		<a class="shareCount"></a>
+    </div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=654914" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+	document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();
+</script>
+<!-- Baidu Button END -->
+
+<img id="imgSinaShare1" class="img_sina_share" title="将选中内容分享到新浪微博" src="http://simg.sinajs.cn/blog7style/images/common/share.gif" style="left: 563px; top: 122px; display: none;position:absolute; cursor:pointer; ">
+
+<img id="imgSinaShare2" class="img_sina_share" title="将选中内容分享到腾讯微博" src="http://mat1.gtimg.com/app/opent/images/websites/qshare/icon4.png" style="left: 563px; top: 122px; display: none;position:absolute; cursor:pointer; ">
+
+<script>
+var eleImgShare1 = document.getElementById("imgSinaShare1");
+var eleImgShare2 = document.getElementById("imgSinaShare2");
+
+var $sinaMiniBlogShare = function(eleShare1,eleShare2, eleContainer) {
+	var eleTitle = document.getElementsByTagName("title")[0];
+	eleContainer = eleContainer || document;
+	var funGetSelectTxt = function() {
+		var txt = "";
+		if(document.selection) {
+			txt = document.selection.createRange().text;	// IE
+		} else {
+			txt = document.getSelection();
+		}
+		return txt.toString();
+	};
+	eleContainer.onmouseup = function(e) {
+		e = e || window.event;
+		var txt = funGetSelectTxt(), sh = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+		var left = (e.clientX - 40 < 0) ? e.clientX + 30 : e.clientX - 50, top = (e.clientY - 40 < 0) ? e.clientY + sh + 20 : e.clientY + sh - 40;
+		var left2 = (e.clientX - 40 < 0) ? e.clientX + 0 : e.clientX - 20, top2 = (e.clientY - 40 < 0) ? e.clientY + sh + 20 : e.clientY + sh - 40;
+		if (txt) {
+			eleShare1.style.display = "inline";
+			eleShare1.style.left = left + "px";
+			eleShare1.style.top = top + "px";
+			eleShare2.style.display = "inline";
+			eleShare2.style.left = left2 + "px";
+			eleShare2.style.top = top2 + "px";
+		} else {
+			eleShare1.style.display = "none";
+			eleShare2.style.display = "none";
+		}
+	};
+	eleShare1.onclick = function() {
+		var txt = funGetSelectTxt(), title = (eleTitle && eleTitle.innerHTML)? eleTitle.innerHTML : "未命名页面";
+		if (txt) {
+			window.open('http://v.t.sina.com.cn/share/share.php?title=' + txt + '→来自页面"' + title + '"的文字片段&url=' + window.location.href);	
+		}
+	};
+	eleShare2.onclick = function() {
+		var txt = funGetSelectTxt(), title = (eleTitle && eleTitle.innerHTML)? eleTitle.innerHTML : "未命名页面";
+		var _appkey = "801132185" || "801000271"; //你从腾讯微博开放平台获得的appkey
+		if (txt) {
+			
+			window.open('http://share.v.t.qq.com/index.php?c=share&a=index&title=' + txt + '→来自页面"' + title + '"的文字片段&url=' + window.location.href+'&appkey=' + _appkey);	
+		}
+	};
+}(eleImgShare1,eleImgShare2);
+</script>
+
+</body>
+</html>

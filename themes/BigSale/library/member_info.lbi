@@ -1,0 +1,9 @@
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+{if $user_info}
+{$lang.hello}，<b class="username">{$user_info.username}</b>，{$lang.welcome_return}！
+ <acronym class="reg">&nbsp;</acronym><a href="user.php">{$lang.user_center}</a>
+ <acronym class="reg">&nbsp;</acronym><a href="user.php?act=logout">{$lang.user_logout}</a>
+{else}
+{$lang.hello}，{$lang.welcome}！ <acronym class="reg">&nbsp;</acronym><a href="user.php" rel="nofollow">登录</a>
+<acronym class="reg">&nbsp;</acronym><a href="user.php?act=register" rel="nofollow">免费注册</a>
+{/if}

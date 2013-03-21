@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+        <meta name="Keywords" content="{$keywords}" />
+        <meta name="Description" content="{$description}" />
+        <!-- TemplateBeginEditable name="doctitle" -->
+        <title>{$page_title}</title>
+        <!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="icon" href="animated_favicon.gif" type="image/gif" />
+        <link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+        {* 包含脚本文件 *}
+        {insert_scripts files='utils.js,common.js,global.js,compare.js'}
+        <script type="text/javascript" src="js/action.js"></script>
+    </head>
+
+    <body>
+        <!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+        <!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem -->
+        <div class="block clearfix"><!-- TemplateBeginEditable name="通栏广告位" -->
+          <!-- TemplateEndEditable -->
+        </div>
+
+        <div class="block clearfix">
+            <div id="pageLeft" class="fl">
+            <!-- TemplateBeginEditable name="左边区域" -->
+            <!-- #BeginLibraryItem "/library/category_tree.lbi" --><!-- #EndLibraryItem -->
+            <!-- TemplateEndEditable -->
+            </div>
+            <div id="pageRight" class="fr" style="z-index: 9999; position: relative;">
+                <div class="module_3L hslice">
+                    <div class="module_3R hslice">
+                        <div class="module_3 hslice" style="min-height: 140px; _height: 140px; border: 1px solid #CCCCCC;">
+                            <!--order search form start-->
+                            <form action="/order_search.php" method="post" name="search_form">
+                                <div class="color">
+                                    <div class="circlecontent">
+                                        <div class="ico_search fl"></div>
+                                        <div class="fl searchvalue">
+                                            <input type="text" id="key" name="w" value="{$search_value}"></input>
+                                            <label><input name="search_type" id="order_sn" type="radio" value="order_sn" <!-- {if $search_type eq 'order_sn'} -->checked<!-- {/if} -->></input><span><b>订单号</b></span></label>
+                                            <label><input name="search_type" id="mobile" type="radio" value="mobile" <!-- {if $search_type eq 'mobile'} -->checked<!-- {/if} -->></input><b>手机号码</b></label>
+                                        </div>
+                                        <div style="cursor:pointer;" class="ico_btnsearch fr" onclick="return order_search();"></div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="act" value="order_search"></input>
+                            </form>
+                            <!--order search form end-->
+                            <div class="recommendContent entry-content" id="show_best_area">
+                                <table cellspacing="0" cellpadding="1" border="0">
+                                    <tbody>
+                                        <tr>
+                                            <th width="80" align="center">订单号</th>
+                                            <th width="60" align="center">姓名</th>
+                                            <th align="center">所订教材</th>
+                                            <th width="80" align="center">订单状态</th>
+                                            <th width="80" align="center">发货日期</th>
+                                            <th width="80" align="center">快递公司</th>
+                                            <th width="80" align="center">发货单号</th>
+                                            <th width="50" align="center">操作</th>
+                                        </tr>
+                                        <!-- {if $order_data} -->
+
+                                        <!--{foreach from=$order_data item=order}-->
+                                        <tr>
+                                            <td class="rowcolor" align="center">{$order.order_sn}</td>
+                                            <td class="rowcolor" align="center">{$order.consignee}</td>
+                                            <td class="rowcolor">
+                                                <!--{foreach from=$order.goods item=goods}-->
+                                                {$goods}<br />
+                                                <!--{/foreach}-->
+                                            </td>
+                                            <td class="rowcolor">{$order.status}</td>
+                                            <td class="rowcolor" align="center">{$order.shipping_time}</td>
+                                            <td class="rowcolor" align="center">{$order.shipping_name}</td>
+                                            <td class="rowcolor" align="center">{$order.shipping_invoice}</td>
+                                            <td class="rowcolor" align="center">{$order.operation}</td>
+                                        </tr>
+                                        <!--{/foreach}-->
+                                        <!-- {else} -->
+                                        <tr>
+                                            <td align="center" colspan="8"><b style="font-size: 14px;line-height:32px;">没有找到相关的订单</b></td>
+                                        </tr>
+                                        <!-- {/if} -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block">
+        <!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem -->
+        </div>
+        <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+        <script type="text/javascript">
+        /*<![CDATA[*/
+        function order_search()
+        {
+            var search_key = document.getElementById('key');
+            var order_sn = document.getElementById('order_sn');
+            var mobile = document.getElementById('mobile');
+            if (!(order_sn.checked || mobile.checked))
+            {
+                alert('请选择查找类型！');
+                return false;
+            }
+
+            if(!search_key.value)
+            {
+                alert('订单号,手机号码请任意填写一个！');
+                return false;
+            }
+
+            if(order_sn.checked)
+            {
+                if (search_key.value.length!=13 || !Utils.isNumber(search_key.value))
+                {
+                    alert('订单号格式错误,请重新填写!!');
+                    return false;
+                }
+            }
+
+            if (mobile.checked)
+            {
+                if (!Utils.isMobile(search_key.value))
+                {
+                    alert('手机号码格式错误,请重新填写!!');
+                    return false;
+                }
+            }
+            document.forms['search_form'].submit();
+        }
+        /*]]>*/
+        </script>
+    </body>
+</html>

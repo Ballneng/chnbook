@@ -1,0 +1,62 @@
+<!--<meta http-equiv="Content-Type" content="text/html; charset=gbk">-->
+<!--{if $split_categories_show}-->
+    <div class="module_1">
+        <h2 class="modTitle tl">
+            <span class="L"></span>
+            <span class="R"></span>
+            <div class="categoriesTit">国家及地方省考教材</div>
+        </h2>
+        <div class="modContent" style="font-size: 14px;">
+            <!--{foreach from=$split_categories item=split_category}-->
+            <div style="height: 20px; padding: 2px 0; text-align: center;">
+                <!--{foreach from=$split_category key=k item=v}-->
+                <span style="display: inline-block; width: 56px; float: left;"><a href="/goods.php?id={$k}">{$v|escape:html}</a></span>
+                <!--{/foreach}-->
+            </div>
+            <!--{/foreach}-->
+        </div>
+    </div>
+
+    <!--{if $index_user_messages}-->
+    <div class="module_1">
+        <h2 class="modTitle tl"><span class="L"></span><span class="R"></span><div class="categoriesTit">在线留言</div></h2>
+        <div class="modContent" style="line-height: 20px;">
+            <!--{foreach from=$index_order_messages item=message}-->
+            <div style="border-bottom: 1px dashed #CCCCCC; padding: 10px 0 5px;">
+                <p style="font-weight: bold; color: #FF8000;">{$message.user_name|escape:html|truncate:18}问：</p>
+                <p><a href="/message.php?action=detail&oid={$message.mid}" style="color: #3686fd;" rel="nofollow">{$message.msg_content|escape:html|truncate:36}</a></p>
+                <p><b style="color: #B53635;">答：</b>{$message.re_content|escape:html|truncate:54}</p>
+            </div>
+            <!--{/foreach}-->
+            <!--{foreach from=$index_user_messages item=message}-->
+            <div style="border-bottom: 1px dashed #CCCCCC; padding: 10px 0 5px;">
+                <p style="font-weight: bold; color: #FF8000;">{$message.user_name|escape:html|truncate:18}问：</p>
+                <p><a href="/message.php?action=detail&id={$message.mid}" style="color: #3686fd;" rel="nofollow">{$message.msg_content|escape:html|truncate:36}</a></p>
+                <p><b style="color: #B53635;">答：</b>{$message.re_content|escape:html|truncate:54}</p>
+            </div>
+            <!--{/foreach}-->
+        </div>
+    </div>
+    <!--{/if}-->
+<!--{else}-->
+    <!--{if $categories}-->
+    <div class="module_1">
+        <h2 class="modTitle tl"><span class="L"></span><span class="R"></span><div class="categoriesTit">商品分类</div></h2>
+        <div class="modContent">
+            <!--{foreach from=$categories item=cat}-->
+            <div class="categories">
+                <acronym class="icon"></acronym><a href="{$cat.url}" rel="nofollow"><strong>{$cat.name|escape:html}</strong></a><br />
+                <!--{if $cat.cat_id}-->
+                <!--{foreach name=childs from=$cat.cat_id item=child}-->
+                <a href="{$child.url}" title="{$child.name|escape:html}" rel="nofollow">{$child.name|escape:html}</a>
+                <!-- {if !$smarty.foreach.childs.last} -->
+                |
+                <!--{/if}-->
+                <!--{/foreach}-->
+                <!--{/if}-->
+            </div>
+            <!--{/foreach}-->
+        </div>
+    </div>
+    <!--{/if}-->
+<!--{/if}-->

@@ -1,0 +1,19 @@
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<!--{if $hot_goods}-->
+<div id='history_div'>
+    <div class="module_2">
+        <h2 class="modTitle tl">
+         <span class="L"></span><span class="R"></span>
+         <div class="fl">热销产品</div>
+        </h2>
+        <div class="modContent attribute" id='history_list'>
+            <!-- {foreach name=hot_goods from=$hot_goods item=goods}-->
+            <ul class="clearfix">
+                <li class="goodsimg"><a target="_blank" href="/goods.php?id={$goods.id}"><img class="B_blue" alt="{$goods.name|escape:html}" src="{$goods.thumb}"></a></li>
+                <li><a title="{$goods.name|escape:html}" target="_blank" href="/goods.php?id={$goods.id}">{$goods.name|escape:html}</a><br>价格：<font class="f1">{$goods.shop_price}</font><br></li>
+            </ul>
+            <!-- {/foreach} -->
+        </div>
+    </div>
+</div>
+<!--{/if}-->

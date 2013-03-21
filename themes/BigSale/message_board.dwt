@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta name="Description" content="{$description}" />
+{if $auto_redirect}
+<meta http-equiv="refresh" content="3;URL={$message.href}" />
+{/if}
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+{* 包含脚本文件 *}
+{insert_scripts files='common.js'}
+<script type="text/javascript" src="js/action.js"></script>
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/ur_here.lbi" --><!-- #EndLibraryItem -->
+<!--主体内容 start-->
+<div class="block clearfix">
+  <!--left start-->
+	<div id="pageLeft" class="fl">
+	<!-- TemplateBeginEditable name="左边区域" -->
+	  <!-- #BeginLibraryItem "/library/category_tree.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/history.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/promotion_info.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/top10.lbi" --><!-- #EndLibraryItem -->
+	<!-- TemplateEndEditable -->
+	</div>
+	<!--left end-->
+	<!--right start-->
+	<div id="pageRight" class="fr">
+	<!-- #BeginLibraryItem "/library/message_list.lbi" --><!-- #EndLibraryItem -->
+        <!--{if !$mid}-->
+  <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->
+        <!--{/if}-->
+		<div class="module">
+			<h1 class="modTitle"><p>{$lang.post_message}</p></h1>
+			<div class="modContent">
+			<form action="message.php" method="post" name="formMsg" onSubmit="return submitMsgBoard(this)">
+            <table width="100%" border="0" cellpadding="3">
+              <tr>
+                <td align="right">{$lang.username}</td>
+                <td>
+                <!--{if $smarty.session.user_name}-->
+                <font class="f4_b">{$username}</font><label for="anonymous" style="margin-left:8px;"><input type="checkbox" name="anonymous" value="1" id="anonymous" />{$lang.message_anonymous}</label>
+                <!--{else}-->
+                <input name="user_name" class="InputBorder" type="text" size="15" value="{$lang.anonymous}" />
+                <!--{/if}-->
+                </td>
+              </tr>
+              <tr>
+                <td align="right">{$lang.email}</td>
+                <td><input name="user_email" type="text" class="InputBorder" size="20" value="{$smarty.session.email|escape}" /></td>
+              </tr>
+              <tr>
+                <td align="right">{$lang.message_board_type}</td>
+                <td><input name="msg_type" type="radio" value="0" checked="checked" />
+                  {$lang.message_type[0]}
+                  <input type="radio" name="msg_type" value="1" />
+                  {$lang.message_type[1]}
+                  <input type="radio" name="msg_type" value="2" />
+                  {$lang.message_type[2]}
+                  <input type="radio" name="msg_type" value="3" />
+                  {$lang.message_type[3]}
+                  <input type="radio" name="msg_type" value="4" />
+                  {$lang.message_type[4]} </td>
+              </tr>
+              <tr>
+                <td align="right">{$lang.message_title}</td>
+                <td><input name="msg_title" type="text" class="InputBorder" size="30" /></td>
+              </tr>
+							<!-- 判断是否启用验证码{if $enabled_mes_captcha} -->
+              <tr>
+                <td align="right">{$lang.comment_captcha}</td>
+                <td><input type="text" size="8" name="captcha"  class="InputBorder" />
+                <img src="captcha.php?{$rand}" alt="captcha" style="vertical-align: middle;cursor: pointer;" onClick="this.src='captcha.php?'+Math.random()" /> </td>
+              </tr>
+            <!--{/if}-->
+              <tr>
+                <td align="right" valign="top">{$lang.message_content}</td>
+                <td><textarea name="msg_content" cols="50" rows="4" wrap="virtual" class="InputBorder"></textarea></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td><input type="hidden" name="act" value="act_add_message" />
+                  <input type="submit" value="{$lang.post_message}" class="bnt_number4" />
+                </td>
+              </tr>
+            </table>
+          </form>
+      <script type="text/javascript">
+        {foreach from=$lang.message_board_js item=item key=key}
+        var {$key} = "{$item}";
+        {/foreach}
+        {literal}
+        /**
+         * 提交留言信息
+        */
+        function submitMsgBoard(frm)
+        {
+            var msg = new Object;
+
+             msg.user_email  = frm.elements['user_email'].value;
+             msg.msg_title   = frm.elements['msg_title'].value;
+             msg.msg_content = frm.elements['msg_content'].value;
+             msg.captcha     = frm.elements['captcha'] ? frm.elements['captcha'].value : '';
+
+            var msg_err = '';
+
+            if (msg.user_email.length > 0)
+            {
+               if (!(Utils.isEmail(msg.user_email)))
+               {
+                  msg_err += msg_error_email + '\n';
+                }
+             }
+             else
+             {
+                  msg_err += msg_empty_email + '\n';
+             }
+            if (msg.msg_title.length == 0)
+            {
+                msg_err += msg_title_empty + '\n';
+            }
+            if (frm.elements['captcha'] && msg.captcha.length==0)
+            {
+                msg_err += msg_captcha_empty + '\n'
+            }
+            if (msg.msg_content.length == 0)
+            {
+                msg_err += msg_content_empty + '\n'
+            }
+            if (msg.msg_title.length > 200)
+            {
+                msg_err += msg_title_limit + '\n';
+            }
+
+            if (msg_err.length > 0)
+            {
+                alert(msg_err);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        {/literal}
+        </script>
+			</div>
+		</div>
+		
+	</div>
+	<!--right end-->
+</div>
+
+<!--主体内容 end-->
+<div class="block">
+<!-- #BeginLibraryItem "/library/help.lbi" --><!-- #EndLibraryItem -->
+</div>
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+        <a class="bds_qzone"></a>
+        <a class="bds_tsina"></a>
+        <a class="bds_tqq"></a>
+        <a class="bds_renren"></a>
+        <span class="bds_more">更多</span>
+		<a class="shareCount"></a>
+    </div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=654914" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+	document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();
+</script>
+<!-- Baidu Button END -->
+
+<img id="imgSinaShare1" class="img_sina_share" title="将选中内容分享到新浪微博" src="http://simg.sinajs.cn/blog7style/images/common/share.gif" style="left: 563px; top: 122px; display: none;position:absolute; cursor:pointer; ">
+
+<img id="imgSinaShare2" class="img_sina_share" title="将选中内容分享到腾讯微博" src="http://mat1.gtimg.com/app/opent/images/websites/qshare/icon4.png" style="left: 563px; top: 122px; display: none;position:absolute; cursor:pointer; ">
+
+<script>
+var eleImgShare1 = document.getElementById("imgSinaShare1");
+var eleImgShare2 = document.getElementById("imgSinaShare2");
+
+var $sinaMiniBlogShare = function(eleShare1,eleShare2, eleContainer) {
+	var eleTitle = document.getElementsByTagName("title")[0];
+	eleContainer = eleContainer || document;
+	var funGetSelectTxt = function() {
+		var txt = "";
+		if(document.selection) {
+			txt = document.selection.createRange().text;	// IE
+		} else {
+			txt = document.getSelection();
+		}
+		return txt.toString();
+	};
+	eleContainer.onmouseup = function(e) {
+		e = e || window.event;
+		var txt = funGetSelectTxt(), sh = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+		var left = (e.clientX - 40 < 0) ? e.clientX + 30 : e.clientX - 50, top = (e.clientY - 40 < 0) ? e.clientY + sh + 20 : e.clientY + sh - 40;
+		var left2 = (e.clientX - 40 < 0) ? e.clientX + 0 : e.clientX - 20, top2 = (e.clientY - 40 < 0) ? e.clientY + sh + 20 : e.clientY + sh - 40;
+		if (txt) {
+			eleShare1.style.display = "inline";
+			eleShare1.style.left = left + "px";
+			eleShare1.style.top = top + "px";
+			eleShare2.style.display = "inline";
+			eleShare2.style.left = left2 + "px";
+			eleShare2.style.top = top2 + "px";
+		} else {
+			eleShare1.style.display = "none";
+			eleShare2.style.display = "none";
+		}
+	};
+	eleShare1.onclick = function() {
+		var txt = funGetSelectTxt(), title = (eleTitle && eleTitle.innerHTML)? eleTitle.innerHTML : "未命名页面";
+		if (txt) {
+			window.open('http://v.t.sina.com.cn/share/share.php?title=' + txt + '→来自页面"' + title + '"的文字片段&url=' + window.location.href);	
+		}
+	};
+	eleShare2.onclick = function() {
+		var txt = funGetSelectTxt(), title = (eleTitle && eleTitle.innerHTML)? eleTitle.innerHTML : "未命名页面";
+		var _appkey = "801132185" || "801000271"; //你从腾讯微博开放平台获得的appkey
+		if (txt) {
+			
+			window.open('http://share.v.t.qq.com/index.php?c=share&a=index&title=' + txt + '→来自页面"' + title + '"的文字片段&url=' + window.location.href+'&appkey=' + _appkey);	
+		}
+	};
+}(eleImgShare1,eleImgShare2);
+</script>
+
+</body>
+</html>

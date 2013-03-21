@@ -1,0 +1,186 @@
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<div class="block tc" style="margin-bottom:20px;">
+   <!-- {if $navigator_list.bottom} -->
+   <!-- {foreach name=nav_bottom_list from=$navigator_list.bottom item=nav} -->
+        <a href="{$nav.url}" <!-- {if $nav.opennew eq 1} --> target="_blank" <!-- {/if} -->>{$nav.name}</a> 
+        <!-- {if !$smarty.foreach.nav_bottom_list.last} -->
+         | 
+        <!-- {/if} -->
+      <!-- {/foreach} --><br />
+  <!-- {/if} -->  
+ {$copyright}
+ {$shop_address} {$shop_postcode}
+ <!-- 邮件{if $service_email} -->
+      E-mail: {$service_email}<br />
+ <!-- 结束邮件{/if} -->
+ <!-- QQ 号码 {foreach from=$qq item=im} -->
+      <!-- {if $im} -->
+      <a href="http://wpa.qq.com/msgrd?V=1&amp;Uin={$im}&amp;Site={$shop_name}&amp;Menu=yes" target="_blank"><img src="http://wpa.qq.com/pa?p=1:{$im}:4" height="16" border="0" alt="QQ" /> {$im}</a>
+      <!-- {/if} -->
+      <!-- {/foreach} 结束QQ号码 -->
+      <!-- 淘宝旺旺 {foreach from=$ww item=im} -->
+      <!-- {if $im} -->
+			<a href="http://amos1.taobao.com/msg.ww?v=2&uid={$im|escape:u8_url}&s=2" target="_blank"><img src="http://amos1.taobao.com/online.ww?v=2&uid={$im|escape:u8_url}&s=2" width="16" height="16" border="0" alt="淘宝旺旺" />{$im}</a>
+      <!-- {/if} -->
+      <!--{/foreach} 结束淘宝旺旺 -->
+      <!-- Yahoo Messenger {foreach from=$ym item=im} -->
+      <!-- {if $im} -->
+      <a href="http://edit.yahoo.com/config/send_webmesg?.target={$im}n&.src=pg" target="_blank"><img src="../images/yahoo.gif" width="18" height="17" border="0" alt="Yahoo Messenger" /> {$im}</a>
+      <!-- {/if} -->
+      <!-- {/foreach} 结束Yahoo Messenger -->
+      <!-- MSN Messenger {foreach from=$msn item=im} -->
+      <!-- {if $im} -->
+      <img src="../images/msn.gif" width="18" height="17" border="0" alt="MSN" /> <a href="msnim:chat?contact={$im}">{$im}</a>
+      <!-- {/if} -->
+      <!-- {/foreach} 结束MSN Messenger -->
+      <!-- Skype {foreach from=$skype item=im} -->
+      <!-- {if $im} -->
+      <img src="http://mystatus.skype.com/smallclassic/{$im|escape:url}" alt="Skype" /><a href="skype:{$im|escape:url}?call">{$im}</a>
+      <!-- {/if} -->
+  <!-- {/foreach} --><br />
+  <!-- ICP 证书{if $icp_number} -->
+  {$lang.icp_number}:<a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">{$icp_number}<br /><!-- 结束ICP 证书{/if} -->中华人民共和国 增值电信业务经营许可证 经营许可证编号：苏B1-20120051
+  <br />出版物经营及网络发行许可证号:新出发 苏A零字第 江088号<br />
+
+ <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33164937-1']);
+  _gaq.push(['_addOrganic', 'soso', 'w']);
+_gaq.push(['_addOrganic', 'sogou', 'query']);
+_gaq.push(['_addOrganic', 'youdao', 'q']);
+_gaq.push(['_addOrganic', 'bing', 'q']);
+_gaq.push(['b._addOrganic', 'baidu', 'word']);
+_gaq.push(['b._addOrganic', 'baidu', 'w']);
+_gaq.push(['b._addOrganic', 'baidu', 'q1']);
+_gaq.push(['_addOrganic', '3721', 'name']);
+_gaq.push(['_addOrganic', 'vnet', 'kw']);
+_gaq.push(['_addOrganic', '114so', 'kw']);
+_gaq.push(['_addOrganic', '360sou', 'q']);
+_gaq.push(['_addOrganic', '360', 'q']);
+_gaq.push(['_trackPageview']);
+
+  _gaq.push(['_addTrans',
+    '{$order.order_sn}', // order ID - required
+    '', // affiliation or store name
+    '200.00', // total - required
+    '', // tax
+    '', // shipping
+    '', // city
+    '', // state or province
+    '' // country
+    ]);
+ _gaq.push(['_addItem',
+ '{$order.order_sn}', // order ID - necessary to associate item with transaction
+'本',// SKU/code - required
+'',// product name
+'', // category or variation
+'200.00',// unit price - required
+'1' // quantity - required
+]);
+_gaq.push(['_trackTrans']);
+_gaq.push(['_trackPageLoadTime']);
+
+(function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+<script type="text/javascript">
+    function show_r_kf()
+{
+    document.getElementById("meumid").style.display="none"
+    document.getElementById("contentid").style.display="block";
+}
+function hideMsgBox(theEvent){
+  if (theEvent){
+    var browser=navigator.userAgent;
+    if (browser.indexOf("Firefox")>0){//如果是Firefox
+        if (document.getElementById("contentid").contains(theEvent.relatedTarget)) {//如果是子元素
+            return
+        }
+    }
+    if (browser.indexOf("MSIE")>0 || browser.indexOf("Presto")>=0){//如果是IE
+        if (document.getElementById('contentid').contains(event.toElement)) {//如果是子元素
+            return;//结束函式
+        }
+    }
+  }
+  document.getElementById("meumid").style.display = "block";
+  document.getElementById("contentid").style.display = "none";
+ }
+</script>
+
+<!-- {if $page_id!="order_search"} -->
+<div class="alertbox" id="divalertbox">
+  <div class="alertlv" id="meumid" onmouseover="show_r_kf()" style="display: block; "><input class="" type="image" src="images/alert/2_33.png"></div>
+  <div class="alertkf" style="display: none; " id="contentid" onmousemove="show_r_kf()" onmouseout="hideMsgBox(event)">
+     <div style="float:right;width:162px;height:410px;background-color:Transparent;">
+        <div style="width:154px; height:10px; background-color:#EDF4FC; float:right;border:1px #c4c4c2 solid; border-bottom:none;"></div>
+        <div style="width:162px; height:33px;"><img src="images/alert/kefu_03.png"></div>
+        <div style="width:100%;">
+          <div class="blank5"></div>
+          <div style="width:154px; float:right; height:320px;background-color:#EDF4FC; border:1px #c4c4c2 solid; border-top:none;">
+             <table border="0" width="100%" style="height:auto;" cellpadding="2" cellspacing="1">
+             <tbody><tr>
+                <td style="font-size:14px; font-family:'黑体'; color:#333333;line-height:30px;">--咨询热线-----------</td>
+              </tr>
+             <tr>
+                <td style="font-size:12px; font-family:'宋体'; color:#333333;"><div align="center">电话:<strong>400-0677-898</strong></div></td>
+              </tr>
+             <tr><td style="font-size:14px; font-family:'黑体'; color:#333333;">--QQ客服-----------</td></tr>
+             <tr>
+                <td>
+
+				<div align="center">
+				<!-- WPA Button Begin -->
+<script type="text/javascript" src="http://static.b.qq.com/account/bizqq/js/wpa.js?type=2&kfuin=4000677898&ws=www.chnbook.org&btn1=%20QQ%20%E5%92%A8%E8%AF%A2&aty=0&a="></script>
+<!-- WPA Button END -->
+				</div>
+		</td>
+	    </tr>
+
+
+
+   <tr><td style="font-size:14px; font-family:'黑体'; color:#333333;">--TQ客服------------</td></tr>
+             <tr>
+                <td>
+
+				<div align="center">
+				<!--客服9090634的嵌入代码-->
+<a href="http://float2006.tq.cn/static.jsp?version=vip&admiuin=9090576&ltype=0&iscallback=0&page_templete_id=24427&is_message_sms=0&is_send_mail=0&uin=9090634" target=_blank><img src="http://float2006.tq.cn/staticimg.jsp?version=vip&admiuin=9090576&ltype=0&uin=9090634&style=4" border='0' />
+
+<br>
+<!--客服9090631的嵌入代码-->
+<a href="http://float2006.tq.cn/static.jsp?version=vip&admiuin=9090576&ltype=0&iscallback=0&page_templete_id=24427&is_message_sms=0&is_send_mail=0&uin=9090631" target=_blank><img src="http://float2006.tq.cn/staticimg.jsp?version=vip&admiuin=9090576&ltype=0&uin=9090631&style=4" border='0' />
+<br>
+<!--客服9090576的嵌入代码-->
+<a href="http://float2006.tq.cn/static.jsp?version=vip&admiuin=9090576&ltype=0&iscallback=0&page_templete_id=24427&is_message_sms=0&is_send_mail=0&uin=9090576" target=_blank><img src="http://float2006.tq.cn/staticimg.jsp?version=vip&admiuin=9090576&ltype=0&uin=9090576&style=4" border='0' />
+
+
+
+
+				</div></td>
+
+				</tr>
+
+
+
+
+            <tr><td><img src="images/alert/kf_bt.jpg"></td></tr>
+            <tr>
+                <td align="center" height="16" colspan="#333333">每天08:30 - 17:30<br>
+                  周末不休息</td></tr>
+             </tbody></table>
+          </div>
+        </div>
+     </div>
+
+  </div>
+</div>
+<!-- {/if} -->

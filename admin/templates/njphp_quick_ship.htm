@@ -1,0 +1,267 @@
+{include file="pageheader.htm"}
+{insert_scripts files="topbar.js,../js/utils.js,listtable.js,selectzone.js,../js/common.js"}
+{if $user}
+<div id="topbar">
+  <div align="right"><a href="" onclick="closebar(); return false"><img src="images/close.gif" border="0" /></a></div>
+  <table width="100%" border="0">
+    <caption><strong> {$lang.buyer_info} </strong></caption>
+    <tr>
+      <td> {$lang.email} </td>
+      <td> <a href="mailto:{$user.email}">{$user.email}</a> </td>
+    </tr>
+    <tr>
+      <td> {$lang.user_money} </td>
+      <td> {$user.formated_user_money} </td>
+    </tr>
+    <tr>
+      <td> {$lang.pay_points} </td>
+      <td> {$user.pay_points} </td>
+    </tr>
+    <tr>
+      <td> {$lang.rank_points} </td>
+      <td> {$user.rank_points} </td>
+    </tr>
+    <tr>
+      <td> {$lang.rank_name} </td>
+      <td> {$user.rank_name} </td>
+    </tr>
+    <tr>
+      <td> {$lang.bonus_count} </td>
+      <td> {$user.bonus_count} </td>
+    </tr>
+  </table>
+
+  {foreach from=$address_list item=address}
+  <table width="100%" border="0">
+    <caption><strong> {$lang.consignee} : {$address.consignee|escape} </strong></caption>
+    <tr>
+      <td> {$lang.email} </td>
+      <td> <a href="mailto:{$address.email}">{$address.email}</a> </td>
+    </tr>
+    <tr>
+      <td> {$lang.address} </td>
+      <td> {$address.address|escape} </td>
+    </tr>
+    <tr>
+      <td> {$lang.zipcode} </td>
+      <td> {$address.zipcode|escape} </td>
+    </tr>
+    <tr>
+      <td> {$lang.tel} </td>
+      <td> {$address.tel|escape} </td>
+    </tr>
+    <tr>
+      <td> {$lang.mobile} </td>
+      <td> {$address.mobile|escape} </td>
+    </tr>
+  </table>
+  {/foreach}
+</div>
+{/if}
+
+<form action="order.php?act=njphp_quick_ship&op=njphp_ship" method="post" name="theForm">
+<div class="list-div" style="margin-bottom: 5px">
+<table width="100%" cellpadding="3" cellspacing="1">
+  <tr>
+    <td colspan="4">
+      <div align="center">
+        <input name="prev" type="button" class="button" onClick="location.href='order.php?act=info&order_id={$prev_id}';" value="{$lang.prev}" {if !$prev_id}disabled{/if} />
+        <input name="next" type="button" class="button" onClick="location.href='order.php?act=info&order_id={$next_id}';" value="{$lang.next}" {if !$next_id}disabled{/if} />
+        <input type="button" onclick="window.open('order.php?act=info&order_id={$order.order_id}&print=1')" class="button" value="{$lang.print_order}" />
+    </div></td>
+  </tr>
+  <tr>
+    <th colspan="4">{$lang.base_info}</th>
+  </tr>
+  <tr>
+    <td width="18%"><div align="right"><strong>{$lang.label_order_sn}</strong></div></td>
+    <td width="34%">{$order.order_sn}{if $order.extension_code eq "group_buy"}<a href="group_buy.php?act=edit&id={$order.extension_id}">{$lang.group_buy}</a>{elseif $order.extension_code eq "exchange_goods"}<a href="exchange_goods.php?act=edit&id={$order.extension_id}">{$lang.exchange_goods}</a>{/if}</td>
+    <td width="15%"><div align="right"><strong>{$lang.label_order_status}</strong></div></td>
+    <td>{$order.status}</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_user_name}</strong></div></td>
+    <td>{$order.user_name|default:$lang.anonymous} {if $order.user_id > 0}[ <a href="" onclick="staticbar();return false;">{$lang.display_buyer}</a> ] [ <a href="user_msg.php?act=add&order_id={$order.order_id}&user_id={$order.user_id}">{$lang.send_message}</a> ]{/if}</td>
+    <td><div align="right"><strong>{$lang.label_order_time}</strong></div></td>
+    <td>{$order.formated_add_time}</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_payment}</strong></div></td>
+    <td>{if $order.pay_id > 0}{$order.pay_name}{else}{$lang.require_field}{/if}<a href="order.php?act=edit&order_id={$order.order_id}&step=payment" class="special">{$lang.edit}</a>
+    ({$lang.action_note}: <span onclick="listTable.edit(this, 'edit_pay_note', {$order.order_id})">{if $order.pay_note}{$order.pay_note}{else}N/A{/if}</span>)</td>
+    <td><div align="right"><strong>{$lang.label_pay_time}</strong></div></td>
+    <td>{$order.pay_time}</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_shipping}</strong></div></td>
+    <td>{if $exist_real_goods}{if $order.shipping_id > 0}{$order.shipping_name}{else}{$lang.require_field}{/if}<a href="order.php?act=edit&order_id={$order.order_id}&step=shipping" class="special">{$lang.edit}</a>&nbsp;&nbsp;<input type="button" onclick="window.open('order.php?act=info&order_id={$order.order_id}&shipping_print=1')" class="button" value="{$lang.print_shipping}"> {if $order.insure_fee > 0}（{$lang.label_insure_fee}{$order.formated_insure_fee}）{/if}{/if}</td>
+    <td><div align="right"><strong>{$lang.label_shipping_time}</strong></div></td>
+    <td>{$order.shipping_time}</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_invoice_no}</strong></div></td>
+    <td>{if $order.shipping_id>0 and $order.shipping_status>0}<span>{if $order.invoice_no}{$order.invoice_no}{else}N/A{/if}</span><a href="order.php?act=edit&order_id={$order.order_id}&step=shipping" class="special">{$lang.edit}</a>{/if}</td>
+    <td><div align="right"><strong>{$lang.from_order}</strong></div></td>
+    <td>{$order.referer}</td>
+  </tr>
+  <tr>
+    <th colspan="4">{$lang.other_info}<a href="order.php?act=edit&order_id={$order.order_id}&step=other" class="special">{$lang.edit}</a></th>
+    </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_inv_type}</strong></div></td>
+    <td>{$order.inv_type}</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_inv_payee}</strong></div></td>
+    <td>{$order.inv_payee}</td>
+    <td><div align="right"><strong>{$lang.label_inv_content}</strong></div></td>
+    <td>{$order.inv_content}</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_postscript}</strong></div></td>
+    <td colspan="3">{$order.postscript}</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_how_oos}</strong></div></td>
+    <td>{$order.how_oos}</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_pack}</strong></div></td>
+    <td>{$order.pack_name}</td>
+    <td><div align="right"><strong>{$lang.label_card}</strong></div></td>
+    <td>{$order.card_name}</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_card_message}</strong></div></td>
+    <td colspan="3">{$order.card_message}</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_to_buyer}</strong></div></td>
+    <td colspan="3">{$order.to_buyer}</td>
+  </tr>
+  <tr>
+    <th colspan="4">{$lang.consignee_info}<a href="order.php?act=edit&order_id={$order.order_id}&step=consignee" class="special">{$lang.edit}</a></th>
+    </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_consignee}</strong></div></td>
+    <td>{$order.consignee|escape}</td>
+    <td><div align="right"><strong>{$lang.label_email}</strong></div></td>
+    <td>{$order.email}</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_address}</strong></div></td>
+    <td>[{$order.region}] {$order.address|escape}</td>
+    <td><div align="right"><strong>{$lang.label_zipcode}</strong></div></td>
+    <td>{$order.zipcode|escape}</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_tel}</strong></div></td>
+    <td>{$order.tel}</td>
+    <td><div align="right"><strong>{$lang.label_mobile}</strong></div></td>
+    <td>{$order.mobile|escape}</td>
+  </tr>
+  <tr>
+    <td><div align="right"><strong>{$lang.label_sign_building}</strong></div></td>
+    <td>{$order.sign_building|escape}</td>
+    <td><div align="right"><strong>{$lang.label_best_time}</strong></div></td>
+    <td>{$order.best_time|escape}</td>
+  </tr>
+</table>
+</div>
+
+<div class="list-div" style="margin-bottom: 5px">
+<table width="100%" cellpadding="3" cellspacing="1">
+  <tr>
+    <th colspan="8" scope="col">{$lang.goods_info}<a href="order.php?act=edit&order_id={$order.order_id}&step=goods" class="special">{$lang.edit}</a></th>
+    </tr>
+  <tr>
+    <td scope="col"><div align="center"><strong>{$lang.goods_name_brand}</strong></div></td>
+    <td scope="col"><div align="center"><strong>{$lang.goods_sn}</strong></div></td>
+    <td scope="col"><div align="center"><strong>{$lang.product_sn}</strong></div></td>
+    <td scope="col"><div align="center"><strong>{$lang.goods_price}</strong></div></td>
+    <td scope="col"><div align="center"><strong>{$lang.goods_number}</strong></div></td>
+    <td scope="col"><div align="center"><strong>{$lang.goods_attr}</strong></div></td>
+    <td scope="col"><div align="center"><strong>{$lang.storage}</strong></div></td>
+    <td scope="col"><div align="center"><strong>{$lang.subtotal}</strong></div></td>
+  </tr>
+  {foreach from=$goods_list item=goods}
+  <tr>
+    <td>
+    {if $goods.goods_id gt 0 && $goods.extension_code neq 'package_buy'}
+    <a href="../goods.php?id={$goods.goods_id}" target="_blank">{$goods.goods_name} {if $goods.brand_name}[ {$goods.brand_name} ]{/if}
+    {if $goods.is_gift}{if $goods.goods_price > 0}{$lang.remark_favourable}{else}{$lang.remark_gift}{/if}{/if}
+    {if $goods.parent_id > 0}{$lang.remark_fittings}{/if}</a>
+    {elseif $goods.goods_id gt 0 && $goods.extension_code eq 'package_buy'}
+    <a href="javascript:void(0)" onclick="setSuitShow({$goods.goods_id})">{$goods.goods_name}<span style="color:#FF0000;">{$lang.remark_package}</span></a>
+    <div id="suit_{$goods.goods_id}" style="display:none">
+        {foreach from=$goods.package_goods_list item=package_goods_list}
+          <a href="../goods.php?id={$package_goods_list.goods_id}" target="_blank">{$package_goods_list.goods_name}</a><br />
+        {/foreach}
+    </div>
+    {/if}
+    </td>
+    <td>{$goods.goods_sn}</td>
+    <td>{$goods.product_sn}</td>
+    <td><div align="right">{$goods.formated_goods_price}</div></td>
+    <td><div align="right">{$goods.goods_number}
+    </div></td>
+    <td>{$goods.goods_attr|nl2br}</td>
+    <td><div align="right">{$goods.storage}</div></td>
+    <td><div align="right">{$goods.formated_subtotal}</div></td>
+  </tr>
+  {/foreach}
+  <tr>
+    <td></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>{if $order.total_weight}<div align="right"><strong>{$lang.label_total_weight}
+    </strong></div>{/if}</td>
+    <td>{if $order.total_weight}<div align="right">{$order.total_weight}
+    </div>{/if}</td>
+    <td>&nbsp;</td>
+    <td><div align="right"><strong>{$lang.label_total}</strong></div></td>
+    <td><div align="right">{$order.formated_goods_amount}</div></td>
+  </tr>
+</table>
+</div>
+
+  
+  <div class="list-div" style="margin-bottom: 5px">
+    <table width="100%" cellpadding="3" cellspacing="1">
+      <tr>
+        <th colspan="4">{$ur_here}</th>
+      </tr>
+	  <tr>
+		<td><div align="right"><strong>客户留言：</strong></div></td>
+		<td colspan="3">
+		{if $order.postscript}
+			<span style="color:red;">{$order.postscript}</span>
+		{else}
+			<span style="color:green;">客户未留言</span>
+		{/if}
+		</td>
+	  </tr>
+	  <tr>
+      <tr>
+        <td><div align="right"><strong>结果反馈：</strong></div></td>
+        <td colspan="3">
+		  <textarea name="njphp_to_buyer" style="width:98%; height:80px;"></textarea><br />
+       	</td>
+      </tr>
+      <tr>
+        <td><div align="right"><strong>{$lang.label_invoice_no}</strong></div></td>
+        <td colspan="3">
+          <input type="text" name="njphp_invoice_no" value="{if $order.shipping_id>0 and $order.shipping_status>0}{if $order.invoice_no}{$order.invoice_no}{else}N/A{/if}{/if}" />
+          <input type="hidden" name="njphp_order_id" value="{$order.order_id}" />
+          <input type="submit" class="button" value="{$ur_here}"> (填写快递单号，执行此操作后一个订单不管之前是否确认都将被设置为已确认、已发货状态，同时记录下快递单号。)
+       	</td>
+      </tr>
+    </table>
+  </div>
+</form>
+
+{include file="pagefooter.htm"}
