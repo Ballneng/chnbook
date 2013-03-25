@@ -153,7 +153,8 @@ function get_message_list($user_id, $user_name, $num, $start, $order_id = 0)
 function add_message($message)
 {
     $upload_size_limit = $GLOBALS['_CFG']['upload_size_limit'] == '-1' ? ini_get('upload_max_filesize') : $GLOBALS['_CFG']['upload_size_limit'];
-    $status = 1 - $GLOBALS['_CFG']['message_check'];
+    //$status = 1 - $GLOBALS['_CFG']['message_check'];
+    $status = 0;
 
     $last_char = strtolower($upload_size_limit{strlen($upload_size_limit)-1});
 
