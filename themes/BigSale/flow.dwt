@@ -110,8 +110,8 @@
 	</form>
 	<table width="99%" align="center" border="0" cellpadding="5" cellspacing="0" class="floatTable">
 		<tr>
-            <td><a href="flow.php?step=checkout"><acronym class="checkout"></acronym></a></td>
-			<td align="right"><a href="./"><acronym class="continue"></acronym></a></td>
+            <td><a href="./"><acronym class="continue"></acronym></a></td>
+			<td align="right"><a href="flow.php?step=checkout"><acronym class="checkout"></acronym></a></td>
 		</tr>
 	</table>
  <!-- {if $smarty.session.user_id gt 0} -->
