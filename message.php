@@ -201,7 +201,7 @@ function get_msg_list($num, $start,$id=0)
             $sql .= " UNION ";
             $sql .= "(SELECT 'feedback' AS tablename, msg_id AS ID, msg_content AS msg_content, msg_title AS msg_title, msg_time AS msg_time, null AS id_value, null AS comment_rank, message_img AS message_img, user_name AS user_name, msg_type AS msg_type ";
             $sql .= " FROM " .$GLOBALS['ecs']->table('feedback');
-            $sql .= " WHERE `msg_area`='1' AND `msg_status` = '1') ";
+            $sql .= " WHERE `msg_status` = '1') ";
             $sql .= " ORDER BY msg_time DESC ";
         }
         else
@@ -212,7 +212,7 @@ function get_msg_list($num, $start,$id=0)
 
             $fee_sql = "SELECT 'feedback' AS tablename, msg_id AS ID, msg_content AS msg_content, msg_title AS msg_title, msg_time AS msg_time, null AS id_value, null AS comment_rank, message_img AS message_img, user_name AS user_name, msg_type AS msg_type ";
             $fee_sql .= " FROM " .$GLOBALS['ecs']->table('feedback');
-            $fee_sql .= " WHERE `msg_area`='1' AND `msg_status` = '1' ";
+            $fee_sql .= " WHERE `msg_status` = '1' ";
 
 
             $cre_con = "CREATE TEMPORARY TABLE tmp_table ".$con_sql;
