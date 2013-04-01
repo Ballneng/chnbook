@@ -187,11 +187,11 @@ if (!defined('INIT_NO_SMARTY'))
     $smarty->assign('ecs_charset', EC_CHARSET);
     if (!empty($_CFG['stylename']))
     {
-        $smarty->assign('ecs_css_path', 'themes/' . $_CFG['template'] . '/style_' . $_CFG['stylename'] . '.css?v=20121015');
+        $smarty->assign('ecs_css_path', 'themes/' . $_CFG['template'] . '/style_' . $_CFG['stylename'] . '.css?v=20130401');
     }
     else
     {
-        $smarty->assign('ecs_css_path', 'themes/' . $_CFG['template'] . '/style.css?v=20121015');
+        $smarty->assign('ecs_css_path', 'themes/' . $_CFG['template'] . '/style.css?v=20130401');
     }
 
 }

@@ -39,8 +39,18 @@
       <!-- {/if} -->
   <!-- {/foreach} --><br />
   <!-- ICP 证书{if $icp_number} -->
-  {$lang.icp_number}:<a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">{$icp_number}<br /><!-- 结束ICP 证书{/if} -->中华人民共和国 增值电信业务经营许可证 经营许可证编号：苏B1-20120051
-  <br />出版物经营及网络发行许可证号:新出发 苏A零字第 江027号 
+  {$lang.icp_number}:<a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">{$icp_number}<br /><!-- 结束ICP 证书{/if} -->
+  中华人民共和国 增值电信业务经营许可证 经营许可证编号：苏B1-20120051
+  <br />出版物经营及网络发行许可证号:新出发 苏A零字第 江027号 <script language="javascript" type="text/javascript" src="http://js.users.51.la/15577751.js"></script>
+<noscript><a href="http://www.51.la/?15577751" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/15577751.asp" style="border:none" /></a></noscript>
+<br />
+
+    <div style="width:960px;margin:0 auto;text-align:center;">
+        <img src="themes/BigSale/images/footer-icon1.jpg" alt="工商认证" />
+        <img src="themes/BigSale/images/footer-icon3.jpg" alt="支付宝特约商家" />
+        <img src="themes/BigSale/images/footer-icon4.jpg" alt="中国电子商务诚信网站" />
+        <img src="themes/BigSale/images/footer-icon2.jpg" alt="消费者保证认证" />
+    </div>
 
  <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -64,9 +74,7 @@ _gaq.push(['_trackPageview']);
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-<script language="javascript" type="text/javascript" src="http://js.users.51.la/15577751.js"></script>
-
-<script type="text/javascript">
+ <script type="text/javascript">
  function hexToString(str)
 {
 　　var val="";
