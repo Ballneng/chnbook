@@ -332,7 +332,7 @@
 <!---- float div ---->
 <DIV id="Crackdown" style="Z-INDEX: 100; LEFT: 2px; WIDTH: 100px; POSITION: absolute; TOP: 43px; HEIGHT: 61px; visibility: visible;background:#eee;border:#ddd solid 1px;" onmouseover="clearMove()" onmouseout="start()">
     <div style="border-bottom:#ddd solid 1px;margin-bottom:5px;font-size:14px;text-align:right;"><a href="javascript:void();" onclick="close_Crackdown()">关闭</a></div>
-    <a href="http://www.chnbook.org/article.php?id=17" target="_blank" rel="nofollow">关于严厉打击盗版图书声明</a></a>
+    <a href="http://www.chnbook.org/article.php?id=20" target="_blank" rel="nofollow">关于严厉打击盗版图书声明</a></a>
 </DIV>
 <SCRIPT language="javascript">
     var xPos = 300;

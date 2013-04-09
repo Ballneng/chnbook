@@ -262,7 +262,7 @@ class cls_image
         if (function_exists('imagejpeg'))
         {
             $filename .= '.jpg';
-            imagejpeg($img_thumb, $dir . $filename);
+            imagejpeg($img_thumb, $dir . $filename,100);
         }
         elseif (function_exists('imagegif'))
         {
@@ -410,7 +410,7 @@ class cls_image
             case 'image/pjpeg':
             case 'image/jpeg':
             case 2:
-                imagejpeg($source_handle, $target);
+                imagejpeg($source_handle, $target,100);
                 break;
 
             case 'image/x-png':
