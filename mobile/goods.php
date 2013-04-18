@@ -26,6 +26,12 @@ $_LANG['home'] = '首页';
 $_LANG['goods_attr'] = '';
 $smarty->assign('goods_id', $goods_id);
 $goods_info = get_goods_info($goods_id);
+if ($goods_info === false)
+{
+   /* 如果没有找到任何记录则跳回到首页 */
+   ecs_header("Location: ./\n");
+   exit;
+}
 $goods_info['goods_name'] = encode_output($goods_info['goods_name']);
 $goods_info['goods_brief'] = encode_output($goods_info['goods_brief']);
 $goods_info['promote_price'] = encode_output($goods_info['promote_price']);
