@@ -54,7 +54,7 @@ if (empty($_SESSION['user_id']))
             {}*/
             if (!empty($_SERVER['QUERY_STRING']))
             {
-                $back_act = 'user.php?' . $_SERVER['QUERY_STRING'];
+                $back_act = 'user.php?' . strip_tags($_SERVER['QUERY_STRING']);
             }
             $action = 'login';
         }
@@ -158,8 +158,8 @@ elseif ($action == 'act_register')
         $other['office_phone'] = isset($_POST['extend_field3']) ? $_POST['extend_field3'] : '';
         $other['home_phone'] = isset($_POST['extend_field4']) ? $_POST['extend_field4'] : '';
         $other['mobile_phone'] = isset($_POST['extend_field5']) ? $_POST['extend_field5'] : '';
-        $sel_question = empty($_POST['sel_question']) ? '' : $_POST['sel_question'];
-        $passwd_answer = isset($_POST['passwd_answer']) ? trim($_POST['passwd_answer']) : '';
+        $sel_question = empty($_POST['sel_question']) ? '' : compile_str($_POST['sel_question']);
+        $passwd_answer = isset($_POST['passwd_answer']) ? compile_str(trim($_POST['passwd_answer'])) : '';
 
         $back_act = isset($_POST['back_act']) ? trim($_POST['back_act']) : '';
 
@@ -213,7 +213,7 @@ elseif ($action == 'act_register')
                 if(!empty($_POST[$extend_field_index]))
                 {
                     $temp_field_content = strlen($_POST[$extend_field_index]) > 100 ? mb_substr($_POST[$extend_field_index], 0, 99) : $_POST[$extend_field_index];
-                    $extend_field_str .= " ('" . $_SESSION['user_id'] . "', '" . $val['id'] . "', '" . $temp_field_content . "'),";
+                    $extend_field_str .= " ('" . $_SESSION['user_id'] . "', '" . $val['id'] . "', '" . compile_str($temp_field_content) . "'),";
                 }
             }
             $extend_field_str = substr($extend_field_str, 0, -1);
@@ -494,8 +494,8 @@ elseif ($action == 'act_edit_profile')
     $other['office_phone'] = $office_phone = isset($_POST['extend_field3']) ? trim($_POST['extend_field3']) : '';
     $other['home_phone'] = $home_phone = isset($_POST['extend_field4']) ? trim($_POST['extend_field4']) : '';
     $other['mobile_phone'] = $mobile_phone = isset($_POST['extend_field5']) ? trim($_POST['extend_field5']) : '';
-    $sel_question = empty($_POST['sel_question']) ? '' : $_POST['sel_question'];
-    $passwd_answer = isset($_POST['passwd_answer']) ? trim($_POST['passwd_answer']) : '';
+    $sel_question = empty($_POST['sel_question']) ? '' : compile_str($_POST['sel_question']);
+    $passwd_answer = isset($_POST['passwd_answer']) ? compile_str(trim($_POST['passwd_answer'])) : '';
 
     /* 更新用户扩展字段的数据 */
     $sql = 'SELECT id FROM ' . $ecs->table('reg_fields') . ' WHERE type = 0 AND display = 1 ORDER BY dis_order, id';   //读出所有扩展字段的id
@@ -753,6 +753,7 @@ elseif ($action == 'act_edit_password')
 
     if (($user_info && (!empty($code) && md5($user_info['user_id'] . $_CFG['hash_code'] . $user_info['reg_time']) == $code)) || ($_SESSION['user_id']>0 && $_SESSION['user_id'] == $user_id && $user->check_user($_SESSION['user_name'], $old_password)))
     {
+
         if ($user->edit_user(array('username'=> (empty($code) ? $_SESSION['user_name'] : $user_info['user_name']), 'old_password'=>$old_password, 'password'=>$new_password), empty($code) ? 0 : 1))
         {
             $user->logout();
@@ -970,14 +971,14 @@ elseif ($action == 'act_edit_address')
         'province'   => isset($_POST['province'])  ? intval($_POST['province']) : 0,
         'city'       => isset($_POST['city'])      ? intval($_POST['city'])     : 0,
         'district'   => isset($_POST['district'])  ? intval($_POST['district']) : 0,
-        'address'    => isset($_POST['address'])   ? trim($_POST['address'])    : '',
-        'consignee'  => isset($_POST['consignee']) ? trim($_POST['consignee'])  : '',
-        'email'      => isset($_POST['email'])     ? trim($_POST['email'])      : '',
-        'tel'        => isset($_POST['tel'])       ? make_semiangle(trim($_POST['tel'])) : '',
-        'mobile'     => isset($_POST['mobile'])    ? make_semiangle(trim($_POST['mobile'])) : '',
-        'best_time'  => isset($_POST['best_time']) ? trim($_POST['best_time'])  : '',
-        'sign_building' => isset($_POST['sign_building']) ? trim($_POST['sign_building']) : '',
-        'zipcode'       => isset($_POST['zipcode'])       ? make_semiangle(trim($_POST['zipcode'])) : '',
+        'address'    => isset($_POST['address'])   ? compile_str(trim($_POST['address']))    : '',
+        'consignee'  => isset($_POST['consignee']) ? compile_str(trim($_POST['consignee']))  : '',
+        'email'      => isset($_POST['email'])     ? compile_str(trim($_POST['email']))      : '',
+        'tel'        => isset($_POST['tel'])       ? compile_str(make_semiangle(trim($_POST['tel']))) : '',
+        'mobile'     => isset($_POST['mobile'])    ? compile_str(make_semiangle(trim($_POST['mobile']))) : '',
+        'best_time'  => isset($_POST['best_time']) ? compile_str(trim($_POST['best_time']))  : '',
+        'sign_building' => isset($_POST['sign_building']) ? compile_str(trim($_POST['sign_building'])) : '',
+        'zipcode'       => isset($_POST['zipcode'])       ? compile_str(make_semiangle(trim($_POST['zipcode']))) : '',
         );
 
     if (update_address($address))
@@ -2014,14 +2015,14 @@ elseif ($action == 'save_order_address')
     include_once(ROOT_PATH .'includes/lib_transaction.php');
 
     $address = array(
-        'consignee' => isset($_POST['consignee']) ? trim($_POST['consignee'])  : '',
-        'email'     => isset($_POST['email'])     ? trim($_POST['email'])      : '',
-        'address'   => isset($_POST['address'])   ? trim($_POST['address'])    : '',
-        'zipcode'   => isset($_POST['zipcode'])   ? make_semiangle(trim($_POST['zipcode'])) : '',
-        'tel'       => isset($_POST['tel'])       ? trim($_POST['tel'])        : '',
-        'mobile'    => isset($_POST['mobile'])    ? trim($_POST['mobile'])     : '',
-        'sign_building' => isset($_POST['sign_building']) ? trim($_POST['sign_building']) : '',
-        'best_time' => isset($_POST['best_time']) ? trim($_POST['best_time'])  : '',
+        'consignee' => isset($_POST['consignee']) ? compile_str(trim($_POST['consignee']))  : '',
+        'email'     => isset($_POST['email'])     ? compile_str(trim($_POST['email']))      : '',
+        'address'   => isset($_POST['address'])   ? compile_str(trim($_POST['address']))    : '',
+        'zipcode'   => isset($_POST['zipcode'])   ? compile_str(make_semiangle(trim($_POST['zipcode']))) : '',
+        'tel'       => isset($_POST['tel'])       ? compile_str(trim($_POST['tel']))        : '',
+        'mobile'    => isset($_POST['mobile'])    ? compile_str(trim($_POST['mobile']))     : '',
+        'sign_building' => isset($_POST['sign_building']) ? compile_str(trim($_POST['sign_building'])) : '',
+        'best_time' => isset($_POST['best_time']) ? compile_str(trim($_POST['best_time']))  : '',
         'order_id'  => isset($_POST['order_id'])  ? intval($_POST['order_id']) : 0
         );
     if (save_order_address($address, $user_id))

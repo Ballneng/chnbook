@@ -53,6 +53,7 @@ $smarty->assign('data_dir',    DATA_DIR);       // 数据目录
 if ($_REQUEST['step'] == 'add_to_cart')
 {
     include_once('includes/cls_json.php');
+    $_POST['goods']=strip_tags(urldecode($_POST['goods']));
     $_POST['goods'] = json_str_iconv($_POST['goods']);
 
     if (!empty($_REQUEST['goods_id']) && empty($_POST['goods']))
@@ -327,8 +328,7 @@ elseif ($_REQUEST['step'] == 'consignee')
             if (count($consignee_list) < 5)
             {
                 /* 如果用户收货人信息的总数小于 5 则增加一个新的收货人信息 */
-                $email = isset($_SESSION['email']) && $_SESSION['email'] ? $_SESSION['email'] : '';
-                $consignee_list[] = array('country' => $_CFG['shop_country'], 'email' =>$email);
+                $consignee_list[] = array('country' => $_CFG['shop_country'], 'email' => isset($_SESSION['email']) ? $_SESSION['email'] : '');
             }
         }
         else
@@ -358,7 +358,6 @@ elseif ($_REQUEST['step'] == 'consignee')
             $city_list[$region_id]     = get_regions(2, $consignee['province']);
             $district_list[$region_id] = get_regions(3, $consignee['city']);
         }
-
         $smarty->assign('province_list', $province_list);
         $smarty->assign('city_list',     $city_list);
         $smarty->assign('district_list', $district_list);
@@ -372,19 +371,19 @@ elseif ($_REQUEST['step'] == 'consignee')
          * 保存收货人信息
          */
         $consignee = array(
-            'address_id'    => empty($_POST['address_id']) ? 0  : intval($_POST['address_id']),
-            'consignee'     => empty($_POST['consignee'])  ? '' : trim($_POST['consignee']),
-            'country'       => empty($_POST['country'])    ? '' : $_POST['country'],
-            'province'      => empty($_POST['province'])   ? '' : $_POST['province'],
-            'city'          => empty($_POST['city'])       ? '' : $_POST['city'],
-            'district'      => empty($_POST['district'])   ? '' : $_POST['district'],
-            'email'         => empty($_POST['email'])      ? '' : $_POST['email'],
-            'address'       => empty($_POST['address'])    ? '' : $_POST['address'],
-            'zipcode'       => empty($_POST['zipcode'])    ? '' : make_semiangle(trim($_POST['zipcode'])),
-            'tel'           => empty($_POST['tel'])        ? '' : make_semiangle(trim($_POST['tel'])),
-            'mobile'        => empty($_POST['mobile'])     ? '' : make_semiangle(trim($_POST['mobile'])),
-            'sign_building' => empty($_POST['sign_building']) ? '' : $_POST['sign_building'],
-            'best_time'     => empty($_POST['best_time'])  ? '' : $_POST['best_time'],
+            'address_id'    => empty($_POST['address_id']) ? 0  :   intval($_POST['address_id']),
+            'consignee'     => empty($_POST['consignee'])  ? '' :   compile_str(trim($_POST['consignee'])),
+            'country'       => empty($_POST['country'])    ? '' :   intval($_POST['country']),
+            'province'      => empty($_POST['province'])   ? '' :   intval($_POST['province']),
+            'city'          => empty($_POST['city'])       ? '' :   intval($_POST['city']),
+            'district'      => empty($_POST['district'])   ? '' :   intval($_POST['district']),
+            'email'         => empty($_POST['email'])      ? '' :   compile_str($_POST['email']),
+            'address'       => empty($_POST['address'])    ? '' :   compile_str($_POST['address']),
+            'zipcode'       => empty($_POST['zipcode'])    ? '' :   compile_str(make_semiangle(trim($_POST['zipcode']))),
+            'tel'           => empty($_POST['tel'])        ? '' :   compile_str(make_semiangle(trim($_POST['tel']))),
+            'mobile'        => empty($_POST['mobile'])     ? '' :   compile_str(make_semiangle(trim($_POST['mobile']))),
+            'sign_building' => empty($_POST['sign_building']) ? '' :compile_str($_POST['sign_building']),
+            'best_time'     => empty($_POST['best_time'])  ? '' :   compile_str($_POST['best_time']),
         );
 
         if ($_SESSION['user_id'] > 0)
@@ -467,8 +466,6 @@ elseif ($_REQUEST['step'] == 'checkout')
     {
         /* 用户没有登录且没有选定匿名购物，转向到登录页面 */
        ecs_header("Location: flow.php?step=consignee&direct_shopping=1\n");
-
-
         exit;
     }
 
@@ -1277,7 +1274,7 @@ elseif ($_REQUEST['step'] == 'change_bonus')
 
         if ((!empty($bonus) && $bonus['user_id'] == $_SESSION['user_id']) || $_GET['bonus'] == 0)
         {
-            $order['bonus_id'] = $_GET['bonus'];
+            $order['bonus_id'] = intval($_GET['bonus']);
         }
         else
         {
@@ -1492,8 +1489,6 @@ elseif ($_REQUEST['step'] == 'done')
     {
         /* 用户没有登录且没有选定匿名购物，转向到登录页面 */
        ecs_header("Location: flow.php?step=consignee&direct_shopping=1\n");
-
-
         exit;
     }
 
@@ -1508,11 +1503,11 @@ elseif ($_REQUEST['step'] == 'done')
     }
 
     $_POST['how_oos'] = isset($_POST['how_oos']) ? intval($_POST['how_oos']) : 0;
-    $_POST['card_message'] = isset($_POST['card_message']) ? htmlspecialchars($_POST['card_message']) : '';
-    $_POST['inv_type'] = !empty($_POST['inv_type']) ? htmlspecialchars($_POST['inv_type']) : '';
-    $_POST['inv_payee'] = isset($_POST['inv_payee']) ? htmlspecialchars($_POST['inv_payee']) : '';
-    $_POST['inv_content'] = isset($_POST['inv_content']) ? htmlspecialchars($_POST['inv_content']) : '';
-    $_POST['postscript'] = isset($_POST['postscript']) ? htmlspecialchars($_POST['postscript']) : '';
+    $_POST['card_message'] = isset($_POST['card_message']) ? compile_str($_POST['card_message']) : '';
+    $_POST['inv_type'] = !empty($_POST['inv_type']) ? compile_str($_POST['inv_type']) : '';
+    $_POST['inv_payee'] = isset($_POST['inv_payee']) ? compile_str($_POST['inv_payee']) : '';
+    $_POST['inv_content'] = isset($_POST['inv_content']) ? compile_str($_POST['inv_content']) : '';
+    $_POST['postscript'] = isset($_POST['postscript']) ? compile_str($_POST['postscript']) : '';
 
     $order = array(
         'shipping_id'     => intval($_POST['shipping']),
@@ -1929,7 +1924,9 @@ elseif ($_REQUEST['step'] == 'done')
     if ($order['order_amount'] > 0)
     {
         $payment = payment_info($order['pay_id']);
+
         include_once('includes/modules/payment/' . $payment['pay_code'] . '.php');
+
         $pay_obj  = new $payment['pay_code'];
         if ($payment['pay_code'] == 'alipay' || $payment['pay_code'] == 'alipaybank')
         {
@@ -2548,7 +2545,7 @@ function flow_cart_stock($arr)
     foreach ($arr AS $key => $val)
     {
         $val = intval(make_semiangle($val));
-        if ($val <= 0)
+        if ($val <= 0 || !is_numeric($key))
         {
             continue;
         }

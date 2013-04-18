@@ -771,6 +771,19 @@ function make_semiangle($str)
 }
 
 /**
+ * 过滤用户输入的基本数据，防止script攻击
+ *
+ * @access      public
+ * @return      string
+ */
+function compile_str($str)
+{
+    $arr = array('<' => '＜', '>' => '＞');
+
+    return strtr($str, $arr);
+}
+
+/**
  * 检查文件类型
  *
  * @access      public
@@ -1142,7 +1155,7 @@ function json_str_iconv($str)
     {
         if (is_string($str))
         {
-            return ecs_iconv('utf-8', EC_CHARSET, $str);
+            return addslashes(stripslashes(ecs_iconv('utf-8', EC_CHARSET, $str)));
         }
         elseif (is_array($str))
         {
