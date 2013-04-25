@@ -86,7 +86,8 @@ function addToCartResponse(result)
   else
   {
     var cartInfo = document.getElementById('ECS_CARTINFO');
-    var cart_url = 'flow.php?step=cart';
+	var d = new Date();
+    var cart_url = 'flow.php?step=cart&t='+ d.getTime();
     if (cartInfo)
     {
       cartInfo.innerHTML = result.content;

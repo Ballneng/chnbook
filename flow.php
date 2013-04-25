@@ -22,6 +22,11 @@ require(ROOT_PATH . 'includes/lib_order.php');
 require_once(ROOT_PATH . 'languages/' .$_CFG['lang']. '/user.php');
 require_once(ROOT_PATH . 'languages/' .$_CFG['lang']. '/shopping_flow.php');
 
+//不缓存网页
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . "GMT");
+header("Cache-Control: no-cache, must-revalidate, no-store, no-cache, must-revalidate, post-check=0, pre-check=0");
+header("Pragma: no-cache");
 /*------------------------------------------------------ */
 //-- INPUT
 /*------------------------------------------------------ */
@@ -2045,7 +2050,6 @@ elseif ($_REQUEST['step'] == 'drop_goods')
 {
     $rec_id = intval($_GET['id']);
     flow_drop_cart_goods($rec_id);
-
     ecs_header("Location: flow.php\n");
     exit;
 }
@@ -2319,6 +2323,7 @@ else
 
     /* 取得商品列表，计算合计 */
     $cart_goods = get_cart_goods();
+	//if($_SESSION['user_id']==18184){var_dump(2,time(),$cart_goods);}
     $smarty->assign('goods_list', $cart_goods['goods_list']);
     $smarty->assign('total', $cart_goods['total']);
 
