@@ -437,7 +437,7 @@ function register()
   var email  = frm.elements['email'].value;
   var password  = Utils.trim(frm.elements['password'].value);
   var confirm_password = Utils.trim(frm.elements['confirm_password'].value);
-  var checked_agreement = frm.elements['agreement'].checked;
+  //var checked_agreement = frm.elements['agreement'].checked;
   var msn = frm.elements['extend_field1'] ? Utils.trim(frm.elements['extend_field1'].value) : '';
   var qq = frm.elements['extend_field2'] ? Utils.trim(frm.elements['extend_field2'].value) : '';
   var home_phone = frm.elements['extend_field4'] ? Utils.trim(frm.elements['extend_field4'].value) : '';
@@ -487,10 +487,10 @@ function register()
   {
     msg += confirm_password_invalid + '\n';
   }
-  if(checked_agreement != true)
+  /*if(checked_agreement != true)
   {
     msg += agreement + '\n';
-  }
+  }*/
 
   if (msn.length > 0 && (!Utils.isEmail(msn)))
   {

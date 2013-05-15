@@ -160,12 +160,13 @@
       <img src="captcha.php?{$rand}" alt="captcha" style="vertical-align: middle;cursor: pointer;" onclick="this.src='captcha.php?'+Math.random()" /> </td>
       </tr>
       <!--{/if}-->
-        <tr>
+        <input type="hidden" name="agreement" value="1" />
+        <!--<tr>
           <td>&nbsp;</td>
           <td><label>
             <input name="agreement" type="checkbox" value="1" checked="checked" />
             {$lang.agreement}</label></td>
-        </tr>
+        </tr>-->
         <tr>
           <td>&nbsp;</td>
           <td align="left">
