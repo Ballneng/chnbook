@@ -518,7 +518,7 @@ function save_consignee($consignee, $default=false)
     if ($consignee['address_id'] > 0)
     {
         /* ÐÞ¸ÄµØÖ· */
-        $res = $GLOBALS['db']->autoExecute($GLOBALS['ecs']->table('user_address'), $consignee, 'UPDATE', 'address_id = ' . $consignee['address_id']);
+        $res = $GLOBALS['db']->autoExecute($GLOBALS['ecs']->table('user_address'), $consignee, 'UPDATE', 'address_id = ' . $consignee['address_id']." AND `user_id`= '".$_SESSION['user_id']."'");
     }
     else
     {

@@ -15,7 +15,10 @@ $tempfiledir    = "./";
 
 $spellercss        = '../spellerStyle.css';                        // by FredCK
 $word_win_src    = '../wordWindow.js';                            // by FredCK
-
+if(!get_magic_quotes_gpc())
+{
+   $_POST['textinputs']=addslashes_d($_POST['textinputs']);
+}
 $textinputs        = $_POST['textinputs']; # array
 $input_separator = "A";
 
@@ -145,7 +148,17 @@ function print_checker_results() {
     # close temp file, delete file
     unlink( $tempfile );
 }
-
+function addslashes_d($val)
+{
+    if (empty($value))
+    {
+        return $value;
+    }
+    else
+    {
+        return is_array($value) ? array_map('addslashes_d', $value) : addslashes($value);
+    }
+}
 
 ?>
 <html>

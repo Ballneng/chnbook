@@ -25,6 +25,8 @@ $action  = isset($_REQUEST['act']) ? trim($_REQUEST['act']) : 'default';
 
 $affiliate = unserialize($GLOBALS['_CFG']['affiliate']);
 $smarty->assign('affiliate', $affiliate);
+$back_act='';
+
 
 // 不需要登录的操作或自己验证是否登录（如ajax处理）的act
 $not_login_arr =
@@ -109,7 +111,7 @@ if ($action == 'default')
 /* 显示会员注册界面 */
 if ($action == 'register')
 {
-    if (!isset($back_act) && isset($GLOBALS['_SERVER']['HTTP_REFERER']))
+    if ((!isset($back_act)||empty($back_act)) && isset($GLOBALS['_SERVER']['HTTP_REFERER']))
     {
         $back_act = strpos($GLOBALS['_SERVER']['HTTP_REFERER'], 'user.php') ? './index.php' : $GLOBALS['_SERVER']['HTTP_REFERER'];
     }
@@ -160,6 +162,7 @@ elseif ($action == 'act_register')
         $other['mobile_phone'] = isset($_POST['extend_field5']) ? $_POST['extend_field5'] : '';
         $sel_question = empty($_POST['sel_question']) ? '' : compile_str($_POST['sel_question']);
         $passwd_answer = isset($_POST['passwd_answer']) ? compile_str(trim($_POST['passwd_answer'])) : '';
+
 
         $back_act = isset($_POST['back_act']) ? trim($_POST['back_act']) : '';
 
@@ -427,7 +430,7 @@ elseif ($action == 'signin')
 /* 退出会员中心 */
 elseif ($action == 'logout')
 {
-    if (!isset($back_act) && isset($GLOBALS['_SERVER']['HTTP_REFERER']))
+    if ((!isset($back_act)|| empty($back_act)) && isset($GLOBALS['_SERVER']['HTTP_REFERER']))
     {
         $back_act = strpos($GLOBALS['_SERVER']['HTTP_REFERER'], 'user.php') ? './index.php' : $GLOBALS['_SERVER']['HTTP_REFERER'];
     }
@@ -756,6 +759,8 @@ elseif ($action == 'act_edit_password')
 
         if ($user->edit_user(array('username'=> (empty($code) ? $_SESSION['user_name'] : $user_info['user_name']), 'old_password'=>$old_password, 'password'=>$new_password), empty($code) ? 0 : 1))
         {
+			$sql="UPDATE ".$ecs->table('users'). "SET `ec_salt`='0' WHERE user_id= '".$user_id."'";
+			$db->query($sql);
             $user->logout();
             show_message($_LANG['edit_password_success'], $_LANG['relogin_lnk'], 'user.php?act=login', 'info');
         }

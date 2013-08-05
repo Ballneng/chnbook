@@ -227,13 +227,16 @@ if(isset($_GET['ent_id']) && isset($_GET['ent_ac']) &&  isset($_GET['ent_sign'])
     $ent_ac = trim($_GET['ent_ac']);
     $ent_sign = trim($_GET['ent_sign']);
     $ent_email = trim($_GET['ent_email']);
-    require(ROOT_PATH . 'includes/cls_transport.php');
-    $t = new transport('-1',5);
-    $apiget = "act=ent_sign&ent_id= $ent_id &ent_ac= $ent_ac &ent_sign= $ent_sign &ent_email= $ent_email";
-    $api_comment = $t->request('http://cloud.ecshop.com/api.php', $apiget);
-    $api_str = $api_comment["body"];
-    if($api_str == $ent_sign)
+    $certificate_id = trim($_CFG['certificate_id']);
+    $domain_url = $ecs->url();
+    $token=$_GET['token'];
+    if($token==md5(md5($_CFG['token']).$domain_url.ADMIN_PATH))
     {
+        require(ROOT_PATH . 'includes/cls_transport.php');
+        $t = new transport('-1',5);
+        $apiget = "act=ent_sign&ent_id= $ent_id & certificate_id=$certificate_id";
+
+        $t->request('http://cloud.ecshop.com/api.php', $apiget);
         $db->query('UPDATE '.$ecs->table('shop_config') . ' SET value = "'. $ent_id .'" WHERE code = "ent_id"');
         $db->query('UPDATE '.$ecs->table('shop_config') . ' SET value = "'. $ent_ac .'" WHERE code = "ent_ac"');
         $db->query('UPDATE '.$ecs->table('shop_config') . ' SET value = "'. $ent_sign .'" WHERE code = "ent_sign"');
@@ -319,6 +322,8 @@ if ((!isset($_SESSION['admin_id']) || intval($_SESSION['admin_id']) <= 0) &&
         exit;
     }
 }
+
+$smarty->assign('token', $_CFG['token']);
 
 if ($_REQUEST['act'] != 'login' && $_REQUEST['act'] != 'signin' &&
     $_REQUEST['act'] != 'forget_pwd' && $_REQUEST['act'] != 'reset_pwd' && $_REQUEST['act'] != 'check_order')

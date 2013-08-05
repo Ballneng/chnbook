@@ -1,0 +1,80 @@
+
+
+<div class="block tc" style="margin-bottom:20px;">
+    <!-- {if $navigator_list.bottom} -->
+    <!-- {foreach name=nav_bottom_list from=$navigator_list.bottom item=nav} -->
+    <a href="{$nav.url}" <!-- {if $nav.opennew eq 1} --> target="_blank" <!-- {/if} -->>{$nav.name}</a>
+        <!-- {if !$smarty.foreach.nav_bottom_list.last} -->
+        |
+        <!-- {/if} -->
+        <!-- {/foreach} --><br />
+        <!-- {/if} -->
+        {$copyright}
+        {$shop_address} {$shop_postcode}
+        <!-- 邮件{if $service_email} -->
+        E-mail: {$service_email}<br />
+        <!-- 结束邮件{/if} -->
+        <!-- QQ 号码 {foreach from=$qq item=im} -->
+        <!-- {if $im} -->
+<a href="http://wpa.qq.com/msgrd?V=1&amp;Uin={$im}&amp;Site={$shop_name}&amp;Menu=yes" target="_blank"><img src="http://wpa.qq.com/pa?p=1:{$im}:4" height="16" border="0" alt="QQ" /> {$im}</a>
+        <!-- {/if} -->
+        <!-- {/foreach} 结束QQ号码 -->
+        <!-- 淘宝旺旺 {foreach from=$ww item=im} -->
+        <!-- {if $im} -->
+<a href="http://amos1.taobao.com/msg.ww?v=2&uid={$im|escape:u8_url}&s=2" target="_blank"><img src="http://amos1.taobao.com/online.ww?v=2&uid={$im|escape:u8_url}&s=2" width="16" height="16" border="0" alt="淘宝旺旺" />{$im}</a>
+        <!-- {/if} -->
+        <!--{/foreach} 结束淘宝旺旺 -->
+        <!-- Yahoo Messenger {foreach from=$ym item=im} -->
+        <!-- {if $im} -->
+<a href="http://edit.yahoo.com/config/send_webmesg?.target={$im}n&.src=pg" target="_blank"><img src="../images/yahoo.gif" width="18" height="17" border="0" alt="Yahoo Messenger" /> {$im}</a>
+        <!-- {/if} -->
+        <!-- {/foreach} 结束Yahoo Messenger -->
+        <!-- MSN Messenger {foreach from=$msn item=im} -->
+        <!-- {if $im} -->
+<img src="../images/msn.gif" width="18" height="17" border="0" alt="MSN" /> <a href="msnim:chat?contact={$im}">{$im}</a>
+        <!-- {/if} -->
+        <!-- {/foreach} 结束MSN Messenger -->
+        <!-- Skype {foreach from=$skype item=im} -->
+        <!-- {if $im} -->
+<img src="http://mystatus.skype.com/smallclassic/{$im|escape:url}" alt="Skype" /><a href="skype:{$im|escape:url}?call">{$im}</a>
+        <!-- {/if} -->
+        <!-- {/foreach} --><br />
+        <!-- ICP 证书{if $icp_number} -->
+        {$lang.icp_number}:<a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">{$icp_number}<br /><!-- 结束ICP 证书{/if} -->
+中华人民共和国 增值电信业务经营许可证 经营许可证编号：苏B1-20120051
+<br />出版物经营及网络发行许可证号:新出发 苏A零字第 江027号 <script language="javascript" type="text/javascript" src="http://js.users.51.la/15577751.js"></script>
+<noscript><a href="http://www.51.la/?15577751" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/15577751.asp" style="border:none" /></a></noscript>
+<br />
+
+<div style="width:960px;margin:0 auto;text-align:center;">
+    <img src="themes/BigSale/images/footer-icon1.jpg" alt="工商认证" />
+    <img src="themes/BigSale/images/footer-icon3.jpg" alt="支付宝特约商家" />
+    <img src="themes/BigSale/images/footer-icon4.jpg" alt="中国电子商务诚信网站" />
+    <img src="themes/BigSale/images/footer-icon2.jpg" alt="消费者保证认证" />
+</div>
+
+
+<script type="text/javascript">
+    function show_r_kf()
+    {
+        document.getElementById("meumid").style.display="none"
+        document.getElementById("contentid").style.display="block";
+    }
+    function hideMsgBox(theEvent){
+        if (theEvent){
+            var browser=navigator.userAgent;
+            if (browser.indexOf("Firefox")>0){//如果是Firefox
+                if (document.getElementById("contentid").contains(theEvent.relatedTarget)) {//如果是子元素
+                    return
+                }
+            }
+            if (browser.indexOf("MSIE")>0 || browser.indexOf("Presto")>=0){//如果是IE
+                if (document.getElementById('contentid').contains(event.toElement)) {//如果是子元素
+                    return;//结束函式
+                }
+            }
+        }
+        document.getElementById("meumid").style.display = "block";
+        document.getElementById("contentid").style.display = "none";
+    }
+</script>

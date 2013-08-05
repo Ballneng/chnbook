@@ -328,7 +328,7 @@
     <!-- {/if} -->
 </div>
 <!--{/if}-->
-<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer_debug.lbi" --><!-- #EndLibraryItem -->
 
 <!---- float div ---->
 <DIV id="Crackdown" style="Z-INDEX: 100; LEFT: 2px; WIDTH: 100px; POSITION: absolute; TOP: 43px; HEIGHT: 61px; visibility: visible;background:#eee;border:#ddd solid 1px;" onmouseover="clearMove()" onmouseout="start()">
@@ -394,74 +394,6 @@
     clearInterval(interval);
     }
 </SCRIPT>
-<!-- Baidu Button BEGIN -->
-<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
-    <a class="bds_qzone"></a>
-    <a class="bds_tsina"></a>
-    <a class="bds_tqq"></a>
-    <a class="bds_renren"></a>
-    <span class="bds_more">更多</span>
-    <a class="shareCount"></a>
-</div>
-<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=654914" ></script>
-<script type="text/javascript" id="bdshell_js"></script>
-<script type="text/javascript">
-    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();
-</script>
-<!-- Baidu Button END -->
 
-<img id="imgSinaShare1" class="img_sina_share" title="将选中内容分享到新浪微博" src="http://simg.sinajs.cn/blog7style/images/common/share.gif" style="left: 563px; top: 122px; display: none;position:absolute; cursor:pointer; ">
-
-<img id="imgSinaShare2" class="img_sina_share" title="将选中内容分享到腾讯微博" src="http://mat1.gtimg.com/app/opent/images/websites/qshare/icon4.png" style="left: 563px; top: 122px; display: none;position:absolute; cursor:pointer; ">
-
-    <script>
-        var eleImgShare1 = document.getElementById("imgSinaShare1");
-        var eleImgShare2 = document.getElementById("imgSinaShare2");
-
-        var $sinaMiniBlogShare = function(eleShare1,eleShare2, eleContainer) {
-            var eleTitle = document.getElementsByTagName("title")[0];
-            eleContainer = eleContainer || document;
-            var funGetSelectTxt = function() {
-                var txt = "";
-                if(document.selection) {
-                    txt = document.selection.createRange().text;	// IE
-                } else {
-                    txt = document.getSelection();
-                }
-                return txt.toString();
-            };
-            eleContainer.onmouseup = function(e) {
-                e = e || window.event;
-                var txt = funGetSelectTxt(), sh = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-                var left = (e.clientX - 40 < 0) ? e.clientX + 30 : e.clientX - 50, top = (e.clientY - 40 < 0) ? e.clientY + sh + 20 : e.clientY + sh - 40;
-                var left2 = (e.clientX - 40 < 0) ? e.clientX + 0 : e.clientX - 20, top2 = (e.clientY - 40 < 0) ? e.clientY + sh + 20 : e.clientY + sh - 40;
-                if (txt) {
-                    eleShare1.style.display = "inline";
-                    eleShare1.style.left = left + "px";
-                    eleShare1.style.top = top + "px";
-                    eleShare2.style.display = "inline";
-                    eleShare2.style.left = left2 + "px";
-                    eleShare2.style.top = top2 + "px";
-                } else {
-                    eleShare1.style.display = "none";
-                    eleShare2.style.display = "none";
-                }
-            };
-            eleShare1.onclick = function() {
-                var txt = funGetSelectTxt(), title = (eleTitle && eleTitle.innerHTML)? eleTitle.innerHTML : "未命名页面";
-                if (txt) {
-                    window.open('http://v.t.sina.com.cn/share/share.php?title=' + txt + '→来自页面"' + title + '"的文字片段&url=' + window.location.href);
-                }
-            };
-            eleShare2.onclick = function() {
-                var txt = funGetSelectTxt(), title = (eleTitle && eleTitle.innerHTML)? eleTitle.innerHTML : "未命名页面";
-                var _appkey = "801132185" || "801000271"; //你从腾讯微博开放平台获得的appkey
-                if (txt) {
-
-                    window.open('http://share.v.t.qq.com/index.php?c=share&a=index&title=' + txt + '→来自页面"' + title + '"的文字片段&url=' + window.location.href+'&appkey=' + _appkey);
-                }
-            };
-        }(eleImgShare1,eleImgShare2);
-    </script>
 </body>
 </html>

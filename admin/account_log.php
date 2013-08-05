@@ -135,6 +135,13 @@ elseif ($_REQUEST['act'] == 'insert' || $_REQUEST['act'] == 'update')
 {
     /* 检查权限 */
     admin_priv('account_manage');
+    $token=trim($_POST['token']);
+    if($token!=$_CFG['token'])
+    {
+        sys_msg($_LANG['no_account_change'], 1);
+    }
+
+
 
     /* 检查参数 */
     $user_id = empty($_REQUEST['user_id']) ? 0 : intval($_REQUEST['user_id']);
