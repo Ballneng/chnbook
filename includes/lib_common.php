@@ -2886,7 +2886,7 @@ function get_order_msg_list($num=4, $start=0,$id=0)
     $msg = array();
 
     $sql = "SELECT t1.msg_id,t1.order_id,t1.user_name,t1.msg_title,t1.msg_time,t1.msg_content AS q,t2.msg_content AS a FROM ".$GLOBALS['ecs']->table('feedback')." AS t1,".$GLOBALS['ecs']->table('feedback') ." AS t2".
-            " WHERE t1.msg_id=t2.parent_id AND t1.user_id=9999999 AND t1.msg_status=1".($id ? " AND t1.msg_id=".$id : "").
+            " WHERE t1.msg_id=t2.parent_id AND t1.user_id=9999999".($id ? " AND t1.msg_id=".$id : "").
             " ORDER BY t1.msg_time DESC";
     $res = $GLOBALS['db']->SelectLimit($sql, $num, $start);
 

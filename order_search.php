@@ -40,6 +40,7 @@ if($act == 'order_search')
         $search_type =  $_POST['order_sn']  ? 'order_sn' : 'mobile';
         $search_value = $search_type=='order_sn' ? $_POST['order_sn'] : $_POST['mobile'];
     }
+    $search_value = compile_str(trim($search_value));
 
     if ($search_type == 'order_sn' && $search_value)
     {
@@ -125,7 +126,7 @@ if($act == 'order_search')
 $ur_here = '¶©µ¥²éÑ¯';
 $smarty->assign('act', $act);
 $smarty->assign('search_type',$search_type ? $search_type : 'order_sn');
-$smarty->assign('search_value',$search_value ? $search_value : '');
+$smarty->assign('search_value',$search_value ? htmlspecialchars($search_value) : '');
 $smarty->assign('order_data',$order_data);
 $smarty->assign('lang', $_LANG);   // ¶©µ¥×´Ì¬
 $smarty->assign('url_format', $url_format);
