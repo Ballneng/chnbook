@@ -24,8 +24,8 @@ if ((DEBUG_MODE & 2) != 2)
 }
 
 /* 清除缓存 */
-clear_cache_files();
-
+//clear_cache_files();
+$smarty->cache_lifetime = 86400;
 /*------------------------------------------------------ */
 //-- INPUT
 /*------------------------------------------------------ */
@@ -55,7 +55,6 @@ $page   = !empty($_REQUEST['page'])  && intval($_REQUEST['page'])  > 0 ? intval(
 
 /* 获得页面的缓存ID */
 $cache_id = sprintf('%X', crc32($cat_id . '-' . $page . '-' . $_CFG['lang']));
-
 if (!$smarty->is_cached('article_cat.dwt', $cache_id))
 {
     /* 如果页面没有被缓存则重新获得页面的内容 */

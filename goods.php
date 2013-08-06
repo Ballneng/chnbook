@@ -21,7 +21,9 @@ if ((DEBUG_MODE & 2) != 2)
 {
     $smarty->caching = true;
 }
-$smarty->caching = false;
+//$smarty->caching = false;
+//ÏêÇéÒ³»º´æ1Ìì
+$smarty->cache_lifetime = 86400;
 
 $affiliate = unserialize($GLOBALS['_CFG']['affiliate']);
 $smarty->assign('affiliate', $affiliate);

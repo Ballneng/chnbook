@@ -102,70 +102,89 @@ if ($action == 'act_add_message')
 
 if ($action == 'default' || $action == 'detail')
 {
-    assign_template();
-    $position = assign_ur_here(0, $_LANG['message_board']);
-    $smarty->assign('page_title', $position['title']);    // 页面标题
-    $smarty->assign('ur_here',    $position['ur_here']);  // 当前位置
-    $smarty->assign('helps',      get_shop_help());       // 网店帮助
-
-    //$smarty->assign('categories', get_categories_tree()); // 分类树
-    //显示地方省考教材 qianlei 2012-08-22
-    $tmp_categorys = get_province_goods();
-    $smarty->assign('split_categories',      array_chunk($tmp_categorys,4,true)); //分割的分类树
-    $smarty->assign('split_categories_show',true);
-    unset($tmp_categorys);
-
-    $smarty->assign('top_goods',  get_top10());           // 销售排行
-    $smarty->assign('cat_list',   cat_list(0, 0, true, 2, false));
-    $smarty->assign('brand_list', get_brand_list());
-    $smarty->assign('promotion_info', get_promotion_info());
-
-    $smarty->assign('enabled_mes_captcha', (intval($_CFG['captcha']) & CAPTCHA_MESSAGE));
-
-    if ($_GET['id'])
+    if ((DEBUG_MODE & 2) != 2)
     {
-        $msg_lists = get_msg_list(1, 0,$_GET['id']);
-        assign_dynamic('message_board');
-        $smarty->assign('rand',      mt_rand());
-        $smarty->assign('msg_lists', $msg_lists);
-        $smarty->assign('mid', $_GET['id']);
-
-        $msg = current($msg_lists);
-        if ($msg['msg_content'])
-            $smarty->assign('page_title', $msg['msg_content']);    // 页面标题
-        unset($msg);
+        $smarty->caching = true;
+        $smarty->cache_lifetime = 86400;
     }
-    else if ($_GET['oid'])
+
+    if ($_GET['id']) {
+        $cache_id = sprintf('%X', crc32($_REQUEST['id'] . '-' . $_CFG['lang']));
+    }
+    else if ($_GET['oid']) {
+        $cache_id = sprintf('%X', crc32($_REQUEST['oid'] . '-' . $_CFG['lang']));
+    }
+    else {
+        $cache_id = sprintf('%X', crc32($_SESSION['user_rank'] . '-' . $_CFG['lang']));
+    }
+
+    if (!$smarty->is_cached('message_board.dwt', $cache_id))
     {
-        $msg_lists = get_order_msg_list(1, 0,$_GET['oid']);
-        assign_dynamic('message_board');
-        $smarty->assign('rand',      mt_rand());
-        $smarty->assign('msg_lists', $msg_lists);
-        $smarty->assign('mid', $_GET['oid']);
+        assign_template();
+        $position = assign_ur_here(0, $_LANG['message_board']);
+        $smarty->assign('page_title', $position['title']);    // 页面标题
+        $smarty->assign('ur_here',    $position['ur_here']);  // 当前位置
+        $smarty->assign('helps',      get_shop_help());       // 网店帮助
 
-        $msg = current($msg_lists);
-        if ($msg['msg_content'])
-            $smarty->assign('page_title', $msg['msg_content']);    // 页面标题
-        unset($msg);
-    }
-    else
-    {
-        $sql = "SELECT COUNT(*) FROM " .$GLOBALS['ecs']->table('comment')." WHERE STATUS =1 AND comment_type =0 ";
-        $record_count = $db->getOne($sql);
-        $sql = "SELECT COUNT(*) FROM " .$GLOBALS['ecs']->table('feedback')." WHERE `msg_area`='1' AND `msg_status` = '1' ";
-        $record_count += $db->getOne($sql);
+        //$smarty->assign('categories', get_categories_tree()); // 分类树
+        //显示地方省考教材 qianlei 2012-08-22
+        $tmp_categorys = get_province_goods();
+        $smarty->assign('split_categories',      array_chunk($tmp_categorys,4,true)); //分割的分类树
+        $smarty->assign('split_categories_show',true);
+        unset($tmp_categorys);
 
-        /* 获取留言的数量 */
-        $page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
-        $pagesize = get_library_number('message_list', 'message_board');
-        $pager = get_pager('message.php', array(), $record_count, $page, $pagesize);
-        $msg_lists = get_msg_list($pagesize, $pager['start']);
-        assign_dynamic('message_board');
-        $smarty->assign('rand',      mt_rand());
-        $smarty->assign('msg_lists', $msg_lists);
-        $smarty->assign('pager', $pager);
+        $smarty->assign('top_goods',  get_top10());           // 销售排行
+        $smarty->assign('cat_list',   cat_list(0, 0, true, 2, false));
+        $smarty->assign('brand_list', get_brand_list());
+        $smarty->assign('promotion_info', get_promotion_info());
+
+        $smarty->assign('enabled_mes_captcha', (intval($_CFG['captcha']) & CAPTCHA_MESSAGE));
+
+        if ($_GET['id'])
+        {
+            $msg_lists = get_msg_list(1, 0,$_GET['id']);
+            assign_dynamic('message_board');
+            $smarty->assign('rand',      mt_rand());
+            $smarty->assign('msg_lists', $msg_lists);
+            $smarty->assign('mid', $_GET['id']);
+
+            $msg = current($msg_lists);
+            if ($msg['msg_content'])
+                $smarty->assign('page_title', $msg['msg_content']);    // 页面标题
+            unset($msg);
+        }
+        else if ($_GET['oid'])
+        {
+            $msg_lists = get_order_msg_list(1, 0,$_GET['oid']);
+            assign_dynamic('message_board');
+            $smarty->assign('rand',      mt_rand());
+            $smarty->assign('msg_lists', $msg_lists);
+            $smarty->assign('mid', $_GET['oid']);
+
+            $msg = current($msg_lists);
+            if ($msg['msg_content'])
+                $smarty->assign('page_title', $msg['msg_content']);    // 页面标题
+            unset($msg);
+        }
+        else
+        {
+            $sql = "SELECT COUNT(*) FROM " .$GLOBALS['ecs']->table('comment')." WHERE STATUS =1 AND comment_type =0 ";
+            $record_count = $db->getOne($sql);
+            $sql = "SELECT COUNT(*) FROM " .$GLOBALS['ecs']->table('feedback')." WHERE `msg_area`='1' AND `msg_status` = '1' ";
+            $record_count += $db->getOne($sql);
+
+            /* 获取留言的数量 */
+            $page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
+            $pagesize = get_library_number('message_list', 'message_board');
+            $pager = get_pager('message.php', array(), $record_count, $page, $pagesize);
+            $msg_lists = get_msg_list($pagesize, $pager['start']);
+            assign_dynamic('message_board');
+            $smarty->assign('rand',      mt_rand());
+            $smarty->assign('msg_lists', $msg_lists);
+            $smarty->assign('pager', $pager);
+        }
     }
-    $smarty->display('message_board.dwt');
+    $smarty->display('message_board.dwt',$cache_id);
 }
 
 

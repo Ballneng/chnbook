@@ -21,7 +21,7 @@ if ((DEBUG_MODE & 2) != 2)
 {
     $smarty->caching = true;
 }
-
+$smarty->cache_lifetime = 86400;
 /*------------------------------------------------------ */
 //-- INPUT
 /*------------------------------------------------------ */
@@ -39,7 +39,6 @@ if(isset($_REQUEST['cat_id']) && $_REQUEST['cat_id'] < 0)
 
 $special = isset($_GET['type'],$_GET['order_sn']);
 $cache_id = sprintf('%X', crc32($_REQUEST['id'] . '-' . $_CFG['lang']));
-
 if ($special || !$smarty->is_cached('article.dwt', $cache_id))
 {
     /* ндубоЙгИ */
